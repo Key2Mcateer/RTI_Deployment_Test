@@ -1,0 +1,129 @@
+{
+  "Runtime": "PYTHON",
+  "FunctionsMetadata": [
+    {
+      "Name": "generate_teams_message",
+      "ScriptFile": "function_app.py",
+      "Bindings": [
+        {
+          "Methods": [
+            "POST"
+          ],
+          "Route": "",
+          "AuthLevel": "Anonymous",
+          "Name": "req",
+          "Direction": "In",
+          "Type": "HttpTrigger"
+        }
+      ],
+      "FabricProperties": {
+        "fabricFunctionParameters": [
+          {
+            "dataType": "str",
+            "name": "Status"
+          },
+          {
+            "dataType": "str",
+            "name": "PipelineID"
+          },
+          {
+            "dataType": "str",
+            "name": "PipelineRunID"
+          },
+          {
+            "dataType": "str",
+            "name": "PipelineName"
+          },
+          {
+            "dataType": "str",
+            "name": "WorkspaceID"
+          },
+          {
+            "dataType": "str",
+            "name": "WorkspaceName"
+          },
+          {
+            "dataType": "str",
+            "name": "StartTime"
+          },
+          {
+            "dataType": "str",
+            "name": "EndTime"
+          },
+          {
+            "dataType": "str",
+            "name": "FailingObject"
+          },
+          {
+            "dataType": "str",
+            "name": "ErrorMessage"
+          }
+        ],
+        "fabricFunctionReturnType": "str",
+        "fabricMetadataSchemaVersion": null
+      }
+    },
+    {
+      "Name": "generate_email_message",
+      "ScriptFile": "function_app.py",
+      "Bindings": [
+        {
+          "Methods": [
+            "POST"
+          ],
+          "Route": "",
+          "AuthLevel": "Anonymous",
+          "Name": "req",
+          "Direction": "In",
+          "Type": "HttpTrigger"
+        }
+      ],
+      "FabricProperties": {
+        "fabricFunctionParameters": [
+          {
+            "dataType": "str",
+            "name": "Status"
+          },
+          {
+            "dataType": "str",
+            "name": "PipelineID"
+          },
+          {
+            "dataType": "str",
+            "name": "PipelineRunID"
+          },
+          {
+            "dataType": "str",
+            "name": "PipelineName"
+          },
+          {
+            "dataType": "str",
+            "name": "WorkspaceID"
+          },
+          {
+            "dataType": "str",
+            "name": "WorkspaceName"
+          },
+          {
+            "dataType": "str",
+            "name": "StartTime"
+          },
+          {
+            "dataType": "str",
+            "name": "EndTime"
+          },
+          {
+            "dataType": "str",
+            "name": "FailingObject"
+          },
+          {
+            "dataType": "str",
+            "name": "ErrorMessage"
+          }
+        ],
+        "fabricFunctionReturnType": "str",
+        "fabricMetadataSchemaVersion": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "audit_log_monitor_history_for_PBI"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ac0634df-2532-a33a-46b5-dda2be42e54d"
+  }
+}

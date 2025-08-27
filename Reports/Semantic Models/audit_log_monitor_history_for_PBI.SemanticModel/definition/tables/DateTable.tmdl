@@ -1,0 +1,166 @@
+table DateTable
+	lineageTag: fca07b01-5218-43ec-95af-5cde45108a26
+	sourceLineageTag: [dbo].[DateTable]
+	dataCategory: Time
+
+	/// CONVERT(SELECTEDVALUE(DateTable[Date]),STRING)
+	measure 'Selected Date Text' = CONVERT(SELECTEDVALUE(DateTable[Date]),STRING)
+		lineageTag: d158f060-7ed1-453a-b12e-498c7351e667
+
+		changedProperty = Name
+
+		changedProperty = Description
+
+	/// "Jobs Summary for " & [Selected Date Text]
+	measure 'Jobs Summary Header Text' = "Jobs Summary for " & [Selected Date Text]
+		lineageTag: 17089603-f20f-4bb6-bf71-a1a5c3ed4b36
+
+		changedProperty = Name
+
+		changedProperty = Description
+
+	/// DISTINCTCOUNT(ItemExecution[ItemExecutionKey])
+	measure ItemCount = DISTINCTCOUNT(ItemExecution[ItemExecutionKey])
+		formatString: 0
+		lineageTag: 188726c6-a8dc-4387-a666-295639f5b996
+
+		changedProperty = Name
+
+		changedProperty = Description
+
+	/// CALCULATE([ItemCount], ItemExecution[ItemRunStatus]="Succeeded") +0
+	measure ItemCountSucceeded = CALCULATE([ItemCount], ItemExecution[ItemRunStatus]="Succeeded") +0
+		formatString: #,0
+		lineageTag: 559917a4-772a-474c-a323-4e671596e792
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = Description
+
+	/// CALCULATE([ItemCount], ItemExecution[ItemRunStatus]="InProgress") +0
+	measure ItemCountInProgress = CALCULATE([ItemCount], ItemExecution[ItemRunStatus]="InProgress") +0
+		formatString: #,0
+		lineageTag: bc5147b8-9684-42d1-b590-74f916dbaba0
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = Description
+
+	/// CALCULATE([ItemCount], ItemExecution[ItemRunStatus]="Failed") +0
+	measure ItemCountFailed = CALCULATE([ItemCount], ItemExecution[ItemRunStatus]="Failed") +0
+		formatString: #,0
+		lineageTag: e498be31-bab5-46dd-ae3e-a02506b6ebfc
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = Description
+
+	/// SUM(ItemDataEntity[InsertCount]) +0
+	measure InsertCount = SUM(ItemDataEntity[InsertCount]) +0
+		formatString: #,0
+		lineageTag: 044c0b25-ae48-4178-987c-8d1c61c03133
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = Description
+
+	/// SUM(ItemDataEntity[UpdateCount]) +0
+	measure UpdateCount = SUM(ItemDataEntity[UpdateCount]) +0
+		formatString: #,0
+		lineageTag: f3ec9bce-4f85-4d0b-bc52-9e89362d9f27
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = Description
+
+	/// CALCULATE([InsertCount] + [UpdateCount], USERELATIONSHIP(itemdataentity[DateKey], DateTable[DateKey]))
+	measure 'Rows Inserted Or Updated' = CALCULATE([InsertCount] + [UpdateCount], USERELATIONSHIP(itemdataentity[DateKey], DateTable[DateKey]))
+		formatString: #,0
+		lineageTag: 49426fb5-2a67-4e5b-8c94-bcd823b79b0f
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = Description
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: ae112208-280c-4373-a64e-584594c87225
+		sourceLineageTag: Date
+		summarizeBy: none
+		sourceColumn: Date
+
+		changedProperty = DataType
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 2fd9fc84-cbf0-4a26-ab36-62ef81299dc1
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 6f51e976-cdc0-4c61-aa89-bc98fbf568dc
+		sourceLineageTag: Month
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 990d37a8-73f9-437a-a3d5-66f4ab20e93f
+		sourceLineageTag: MonthName
+		summarizeBy: none
+		sourceColumn: MonthName
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsTodayOrBefore
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: c9b36680-d877-4989-8188-adeacf2da1d3
+		sourceLineageTag: IsTodayOrBefore
+		summarizeBy: none
+		sourceColumn: IsTodayOrBefore
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DateTable = entity
+		mode: directLake
+		source
+			entityName: DateTable
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,57 @@
+{
+  "sources": [
+    {
+      "id": "a8feaa80-4a89-4dc8-ab58-add3107bec25",
+      "name": "Item-Activity-Result-Endpoint",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "f57c005c-04f5-4dee-b5c3-e7fd4d13f25e",
+      "name": "Item-Activity-Result-Hist",
+      "type": "Lakehouse",
+      "properties": {
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "ddbf73f4-213e-a35f-4c9d-94c76bbd495a",
+        "schema": "Raw",
+        "deltaTable": "Item_Activity_Result",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "Item_Activity_Result_Stream-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "Item_Activity_Result_Stream-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "3ca5c59a-4918-462f-aed7-2bb6e20e722d",
+      "name": "Item_Activity_Result_Stream-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "Item-Activity-Result-Endpoint"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.0"
+}

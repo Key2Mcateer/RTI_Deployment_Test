@@ -1,0 +1,108 @@
+table itemactivityexecution
+	lineageTag: 75f05d60-bf74-497c-81a6-4f931292657b
+	sourceLineageTag: [Refined].[itemactivityexecution]
+
+	column ItemActivityExecutionKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d8cf09e9-a501-45f6-b0b0-3208ca566368
+		sourceLineageTag: ItemActivityExecutionKey
+		summarizeBy: count
+		sourceColumn: ItemActivityExecutionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemExecutionKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 484aeb11-b562-449d-a292-7cfbbd5c874a
+		sourceLineageTag: ItemExecutionKey
+		summarizeBy: none
+		sourceColumn: ItemExecutionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemActivityName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 98ff217e-6dee-4f9b-9b7d-1e707c242284
+		sourceLineageTag: ItemActivityName
+		summarizeBy: none
+		sourceColumn: ItemActivityName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemActivityType
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ec577db3-eda5-4f6a-8d2e-d629f0af1ae6
+		sourceLineageTag: ItemActivityType
+		summarizeBy: none
+		sourceColumn: ItemActivityType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemActivityRunID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 4a9ddc84-12e1-4d45-ae53-3d26dbc0d97c
+		sourceLineageTag: ItemActivityRunID
+		summarizeBy: none
+		sourceColumn: ItemActivityRunID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemActivityStatus
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 016ab79e-c335-4aae-b9d8-a03181db2b71
+		sourceLineageTag: ItemActivityStatus
+		summarizeBy: none
+		sourceColumn: ItemActivityStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemActivityStartDateTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: c9e898ed-0a8f-4368-b810-208c438324c0
+		sourceLineageTag: ItemActivityStartDateTime
+		summarizeBy: none
+		sourceColumn: ItemActivityStartDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemActivityEndDateTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: ccba7b29-d86f-43d3-8f83-4154ef8f29c1
+		sourceLineageTag: ItemActivityEndDateTime
+		summarizeBy: none
+		sourceColumn: ItemActivityEndDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 8bd308c9-835d-4366-bef4-f8dbc54b063c
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition itemactivityexecution = entity
+		mode: directLake
+		source
+			entityName: itemactivityexecution
+			schemaName: Refined
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

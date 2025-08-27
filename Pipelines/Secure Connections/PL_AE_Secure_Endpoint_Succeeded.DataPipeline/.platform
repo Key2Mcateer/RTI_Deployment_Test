@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_AE_Secure_Endpoint_Succeeded"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "502543d6-757d-8b9e-477b-fa8450739d24"
+  }
+}

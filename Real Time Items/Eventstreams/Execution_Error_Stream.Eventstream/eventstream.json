@@ -1,0 +1,57 @@
+{
+  "sources": [
+    {
+      "id": "c3d18b88-b0de-4b6c-9967-fde9adc44511",
+      "name": "Execution-Error-Endpoint",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "69fb0fb7-41bb-43b5-9625-3ad34f98b289",
+      "name": "Lakehouse",
+      "type": "Lakehouse",
+      "properties": {
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "ddbf73f4-213e-a35f-4c9d-94c76bbd495a",
+        "schema": "Raw",
+        "deltaTable": "Execution_Error",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "Execution_Error_Stream-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "Execution_Error_Stream-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "58dcf0fc-a073-42c8-8aa5-8426768fc3f0",
+      "name": "Execution_Error_Stream-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "Execution-Error-Endpoint"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.0"
+}

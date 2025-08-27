@@ -1,0 +1,372 @@
+table itemdataentity
+	lineageTag: fcaf5f75-d62e-4160-a79c-ad62be08349f
+	sourceLineageTag: [Refined].[itemdataentity]
+
+	column ItemDataEntityKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f390ed24-323b-475c-a9d8-135d42e46a46
+		sourceLineageTag: ItemDataEntityKey
+		summarizeBy: count
+		sourceColumn: ItemDataEntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemExecutionKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 8f1ea63d-e0ff-48d5-b572-17a6b42397eb
+		sourceLineageTag: ItemExecutionKey
+		summarizeBy: count
+		sourceColumn: ItemExecutionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FlowType
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 114c5176-2f36-4029-8795-548c8887a0fe
+		sourceLineageTag: FlowType
+		summarizeBy: none
+		sourceColumn: FlowType
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityWorkspaceID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 01e17ede-3cdb-4793-a7d7-2d13def7e28b
+		sourceLineageTag: DataEntityWorkspaceID
+		summarizeBy: none
+		sourceColumn: DataEntityWorkspaceID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityWorkspaceName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: bc6874b9-0e03-47ba-a6c4-72f920b54d06
+		sourceLineageTag: DataEntityWorkspaceName
+		summarizeBy: none
+		sourceColumn: DataEntityWorkspaceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityLakehouseID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 97c0304d-9f8b-4643-8e85-a0cb54bd6a13
+		sourceLineageTag: DataEntityLakehouseID
+		summarizeBy: none
+		sourceColumn: DataEntityLakehouseID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityLakehouseName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 384b25d5-6ca4-4488-a925-e1e6873fac91
+		sourceLineageTag: DataEntityLakehouseName
+		summarizeBy: none
+		sourceColumn: DataEntityLakehouseName
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 42db9ece-683f-4c70-b115-8ae0b179d50d
+		sourceLineageTag: DataEntityName
+		summarizeBy: none
+		sourceColumn: DataEntityName
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityNameSpace
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 060fc177-db8e-42e0-ac48-da54a454e711
+		sourceLineageTag: DataEntityNameSpace
+		summarizeBy: none
+		sourceColumn: DataEntityNameSpace
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityLoadType
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 24997d06-a2c4-4e98-974e-c85698fe6092
+		sourceLineageTag: DataEntityLoadType
+		summarizeBy: none
+		sourceColumn: DataEntityLoadType
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityStartDateTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 7ebbc44d-3d06-43d6-a0ab-de16124fc4f5
+		sourceLineageTag: DataEntityStartDateTime
+		summarizeBy: none
+		sourceColumn: DataEntityStartDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityEndDateTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 8ad891a4-8203-455f-ace1-878c61d79379
+		sourceLineageTag: DataEntityEndDateTime
+		summarizeBy: none
+		sourceColumn: DataEntityEndDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityActivityType
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7262519f-9a1c-4fec-aed4-02a8650e1112
+		sourceLineageTag: DataEntityActivityType
+		summarizeBy: none
+		sourceColumn: DataEntityActivityType
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityActivityRunID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: c20513c8-11d4-4531-b79d-a434db28f946
+		sourceLineageTag: DataEntityActivityRunID
+		summarizeBy: none
+		sourceColumn: DataEntityActivityRunID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataEntityExecutionStatus
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 5ff678b8-5300-435f-98ff-2b3fc3a554c9
+		sourceLineageTag: DataEntityExecutionStatus
+		summarizeBy: none
+		sourceColumn: DataEntityExecutionStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column RelativePath
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 13282ba1-1bbe-44ff-8444-79fef24ceb02
+		sourceLineageTag: RelativePath
+		summarizeBy: none
+		sourceColumn: RelativePath
+
+		annotation SummarizationSetBy = Automatic
+
+	column ABFSPath
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 444f0cf4-005d-40fa-89e2-3ba62bf67a7d
+		sourceLineageTag: ABFSPath
+		summarizeBy: none
+		sourceColumn: ABFSPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column FileNameWithExt
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 36efe459-8a2b-41b4-a3d5-7a244e8a3cb1
+		sourceLineageTag: FileNameWithExt
+		summarizeBy: none
+		sourceColumn: FileNameWithExt
+
+		annotation SummarizationSetBy = Automatic
+
+	column FileName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: cdc64118-6a78-44ae-a427-2e5482d58dd4
+		sourceLineageTag: FileName
+		summarizeBy: none
+		sourceColumn: FileName
+
+		annotation SummarizationSetBy = Automatic
+
+	column RowsRead
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a9a1ca1d-c4d0-4cf6-a1c1-7355519754af
+		sourceLineageTag: RowsRead
+		summarizeBy: sum
+		sourceColumn: RowsRead
+
+		annotation SummarizationSetBy = Automatic
+
+	column RowsCopied
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 75d475d9-6ec1-42a1-b71b-1f29a618348e
+		sourceLineageTag: RowsCopied
+		summarizeBy: sum
+		sourceColumn: RowsCopied
+
+		annotation SummarizationSetBy = Automatic
+
+	column CopyDuration
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 16359d5d-962a-4ffb-a894-882b44c9f1d2
+		sourceLineageTag: CopyDuration
+		summarizeBy: sum
+		sourceColumn: CopyDuration
+
+		annotation SummarizationSetBy = Automatic
+
+	column FilesRead
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ae0ad77e-5c52-43b0-9da3-00447e0dd675
+		sourceLineageTag: FilesRead
+		summarizeBy: sum
+		sourceColumn: FilesRead
+
+		annotation SummarizationSetBy = Automatic
+
+	column FilesWritten
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 7d623902-73d6-4505-9122-16cb053cdac7
+		sourceLineageTag: FilesWritten
+		summarizeBy: sum
+		sourceColumn: FilesWritten
+
+		annotation SummarizationSetBy = Automatic
+
+	column InsertCount
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a6cc4478-2252-441b-b1d3-2a80f0860fa2
+		sourceLineageTag: InsertCount
+		summarizeBy: sum
+		sourceColumn: InsertCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdateCount
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c86ac462-c535-4dc0-b6e6-daf6d820cd1a
+		sourceLineageTag: UpdateCount
+		summarizeBy: sum
+		sourceColumn: UpdateCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column DeleteCount
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 1b9d4c72-4a06-4095-9e0c-d031677e5fec
+		sourceLineageTag: DeleteCount
+		summarizeBy: sum
+		sourceColumn: DeleteCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column MaxWatermark
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 77ffe8f2-28bb-4115-8139-16bc431a3962
+		sourceLineageTag: MaxWatermark
+		summarizeBy: none
+		sourceColumn: MaxWatermark
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedBy
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: dd4aaa87-becf-4e1c-8aaf-054f6e806243
+		sourceLineageTag: CreatedBy
+		summarizeBy: none
+		sourceColumn: CreatedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDateTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: d6c0635a-6476-4541-846f-96bdb63b1c52
+		sourceLineageTag: CreatedDateTime
+		summarizeBy: none
+		sourceColumn: CreatedDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column IntegrationGroupKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 26ee8b16-3385-4da9-8548-400714e5a521
+		sourceLineageTag: IntegrationGroupKey
+		summarizeBy: count
+		sourceColumn: IntegrationGroupKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column IntegrationTaskKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b3e8de6a-72dc-4647-bb49-e618550cbd5c
+		sourceLineageTag: IntegrationTaskKey
+		summarizeBy: count
+		sourceColumn: IntegrationTaskKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column RelatedIntegrationTaskKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e4b86bb1-95ed-47eb-b7e7-7281ce6f265f
+		sourceLineageTag: RelatedIntegrationTaskKey
+		summarizeBy: count
+		sourceColumn: RelatedIntegrationTaskKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d3ec28fe-b5b4-4a87-a7ae-5ebd3db6fe8f
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+	partition itemdataentity = entity
+		mode: directLake
+		source
+			entityName: itemdataentity
+			schemaName: Refined
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

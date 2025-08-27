@@ -1,0 +1,237 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Web Get AKV Client ID",
+        "type": "WebActivity",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "method": "GET",
+          "headers": {},
+          "relativeUrl": "/rti-client-id/b70776af68f14b3391c2c6844c1ac9d4?api-version=7.0"
+        },
+        "externalReferences": {
+          "connection": "3b490f00-3fa0-4aca-bb27-4be752009bce"
+        }
+      },
+      {
+        "name": "Web Get AKV Secret",
+        "type": "WebActivity",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "method": "GET",
+          "headers": {},
+          "relativeUrl": "/rti-client-secret/86bb50776c5449efac921ae32fb04d50/?api-version=7.0"
+        },
+        "externalReferences": {
+          "connection": "3b490f00-3fa0-4aca-bb27-4be752009bce"
+        }
+      },
+      {
+        "name": "Web Get Eventhub Token",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "Web Get AKV Client ID",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Web Get AKV Secret",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "body": {
+            "value": "@concat('grant_type=client_credentials',\n'&resource=https://eventhubs.azure.net',\n'&client_id=',\nactivity('Web Get AKV Client ID').output.value,\n'&client_secret=',\nactivity('Web Get AKV Secret').output.value\n)",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "95c0b3a5-b186-45e7-bbe1-b21a08f39197"
+        }
+      },
+      {
+        "name": "Web Send To Evenstream Endpoint",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "Web Get Eventhub Token",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "method": "POST",
+          "headers": {
+            "Authorization": {
+              "value": "@concat('Bearer ',\nactivity('Web Get Eventhub Token').output.access_token   \n)",
+              "type": "Expression"
+            },
+            "Content-Type": "application/atom+xml;type=entry;charset=utf-8"
+          },
+          "relativeUrl": "/es_e1178bc1-ad1d-4553-9d40-1309e86ee71c/messages",
+          "body": {
+            "value": "@concat('{',\n'\"ABFSPath\": \"', pipeline().parameters.ABFSPath, '\", ',\n'\"DataEntityActivityRunID\": \"', pipeline().parameters.DataEntityActivityRunID, '\", ',\n'\"DataEntityActivityType\": \"', pipeline().parameters.DataEntityActivityType, '\", ',\n'\"DataEntityActivityName\": \"', pipeline().parameters.DataEntityActivityName, '\", ',\n'\"DataEntityStartDateTime\": \"', pipeline().parameters.DataEntityStartDateTime, '\", ',\n'\"DataEntityEndDateTime\": \"', pipeline().parameters.DataEntityEndDateTime, '\", ',\n'\"DataEntityExecutionStatus\": \"', variables('Status'), '\", ',\n'\"DataEntityLakehouseID\": \"', pipeline().parameters.DataEntityLakehouseID, '\", ',\n'\"DataEntityLakehouseName\": \"', pipeline().parameters.DataEntityLakehouseName, '\", ',\n'\"DataEntityLoadType\": \"', pipeline().parameters.DataEntityLoadType, '\", ',\n'\"DataEntityName\": \"', pipeline().parameters.DataEntityName, '\", ',\n'\"DataEntityNameSpace\": \"', pipeline().parameters.DataEntityNameSpace, '\", ',\n'\"DataEntityWorkspaceID\": \"', pipeline().parameters.DataEntityWorkspaceID, '\", ',\n'\"DataEntityWorkspaceName\": \"', pipeline().parameters.DataEntityWorkspaceName, '\", ',\n'\"DeleteCount\": \"', pipeline().parameters.DeleteCount, '\", ',\n'\"FileName\": \"', pipeline().parameters.FileName, '\", ',\n'\"FileNameWithExt\": \"', pipeline().parameters.FileNameWithExt, '\", ',\n'\"FlowType\": \"', pipeline().parameters.FlowType, '\", ',\n'\"InsertCount\": \"', pipeline().parameters.InsertCount, '\", ',\n'\"ItemRunID\": \"', pipeline().parameters.ItemRunID, '\", ',\n'\"MaxWatermark\": \"', pipeline().parameters.MaxWatermark, '\", ',\n'\"RelativePath\": \"', pipeline().parameters.RelativePath, '\", ',\n'\"RowsCopied\": \"', pipeline().parameters.RowsCopied, '\", ',\n'\"RowsRead\": \"', pipeline().parameters.RowsRead, '\", ',\n'\"UpdateCount\": \"', pipeline().parameters.UpdateCount, '\", ',\n'\"CopyDuration\": \"', pipeline().parameters.CopyDuration, '\", ',\n'\"FilesRead\": \"', pipeline().parameters.FilesRead, '\", ',\n'\"FilesWritten\": \"', pipeline().parameters.FilesWritten, '\", ',\n'\"CreatedBy\": \"', pipeline().parameters.CreatedBy, '\", ',\n'\"CreatedDateTime\": \"', pipeline().parameters.CreatedDateTime, '\", ',\n'\"ExecutionErrorMessage\": \"', replace(replace(replace(pipeline().parameters.ExecutionErrorMessage, '\\r', '\\\\r'), '\\n', '\\\\n'), '\\\\', '\\\\\\\\'), '\", ',\n'\"IntegrationGroupKey\": \"', pipeline().parameters.IntegrationGroupKey, '\", ',\n'\"IntegrationTaskKey\": \"', pipeline().parameters.IntegrationTaskKey, '\", ',\n'\"RelatedIntegrationTaskKey\": \"', pipeline().parameters.RelatedIntegrationTaskKey, '\"',\n'}')",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "df6f4510-0177-4030-885d-0b2d3f09ff7e"
+        }
+      }
+    ],
+    "parameters": {
+      "ABFSPath": {
+        "type": "string"
+      },
+      "DataEntityActivityRunID": {
+        "type": "string"
+      },
+      "DataEntityActivityType": {
+        "type": "string"
+      },
+      "DataEntityStartDateTime": {
+        "type": "string"
+      },
+      "DataEntityLakehouseID": {
+        "type": "string"
+      },
+      "DataEntityLakehouseName": {
+        "type": "string"
+      },
+      "DataEntityLoadType": {
+        "type": "string"
+      },
+      "DataEntityName": {
+        "type": "string"
+      },
+      "DataEntityNameSpace": {
+        "type": "string"
+      },
+      "DataEntityWorkspaceID": {
+        "type": "string"
+      },
+      "DeleteCount": {
+        "type": "string"
+      },
+      "FileName": {
+        "type": "string"
+      },
+      "FileNameWithExt": {
+        "type": "string"
+      },
+      "FlowType": {
+        "type": "string"
+      },
+      "InsertCount": {
+        "type": "string"
+      },
+      "ItemRunID": {
+        "type": "string"
+      },
+      "MaxWatermark": {
+        "type": "string"
+      },
+      "RelativePath": {
+        "type": "string"
+      },
+      "RowsCopied": {
+        "type": "string"
+      },
+      "RowsRead": {
+        "type": "string"
+      },
+      "UpdateCount": {
+        "type": "string"
+      },
+      "CopyDuration": {
+        "type": "string"
+      },
+      "FilesRead": {
+        "type": "string"
+      },
+      "FilesWritten": {
+        "type": "string"
+      },
+      "IntegrationGroupKey": {
+        "type": "string"
+      },
+      "IntegrationTaskKey": {
+        "type": "string"
+      },
+      "RelatedIntegrationTaskKey": {
+        "type": "string"
+      },
+      "CreatedDateTime": {
+        "type": "string"
+      },
+      "DataEntityWorkspaceName": {
+        "type": "string"
+      },
+      "DataEntityEndDateTime": {
+        "type": "string"
+      },
+      "DataEntityActivityName": {
+        "type": "string"
+      },
+      "ExecutionErrorMessage": {
+        "type": "string"
+      },
+      "CreatedBy": {
+        "type": "string"
+      }
+    },
+    "variables": {
+      "Status": {
+        "type": "String",
+        "defaultValue": "Failed"
+      },
+      "cid": {
+        "type": "String"
+      },
+      "PostResponse": {
+        "type": "String"
+      },
+      "ResponseTest": {
+        "type": "String"
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+table itemactivityresult
+	lineageTag: 4bd1fb69-b924-4736-a142-910ec4df42b9
+	sourceLineageTag: [Refined].[itemactivityresult]
+
+	column ItemActivityResultKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 92854c30-e4e2-4816-a69a-8d1b79addc48
+		sourceLineageTag: ItemActivityResultKey
+		summarizeBy: none
+		sourceColumn: ItemActivityResultKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemExecutionKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: da7fc973-4b50-4827-841c-a3d2f898c48a
+		sourceLineageTag: ItemExecutionKey
+		summarizeBy: none
+		sourceColumn: ItemExecutionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemResultName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 3b7b69b6-2f2d-4145-b6d5-5c99bc2a2176
+		sourceLineageTag: ItemResultName
+		summarizeBy: none
+		sourceColumn: ItemResultName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemResultValue
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 0176b7db-43db-4789-a65f-f71ecb500d15
+		sourceLineageTag: ItemResultValue
+		summarizeBy: none
+		sourceColumn: ItemResultValue
+
+		annotation SummarizationSetBy = Automatic
+
+	partition itemactivityresult = entity
+		mode: directLake
+		source
+			entityName: itemactivityresult
+			schemaName: Refined
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

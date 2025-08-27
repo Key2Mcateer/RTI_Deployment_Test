@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "UserDataFunction",
+    "displayName": "udf_notifications"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a21d5007-f98c-99c1-4df1-29ae0f5c6999"
+  }
+}

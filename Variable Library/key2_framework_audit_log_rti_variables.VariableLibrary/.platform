@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "VariableLibrary",
+    "displayName": "key2_framework_audit_log_rti_variables",
+    "description": ""
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "30156dc6-fcc1-b5a4-45fb-b05c9337aed0"
+  }
+}

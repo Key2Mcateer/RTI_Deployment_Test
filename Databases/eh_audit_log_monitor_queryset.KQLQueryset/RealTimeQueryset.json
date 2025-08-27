@@ -1,0 +1,160 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "8eca9a6a-2579-4a33-82e8-1e236e013976",
+        "clusterUri": "",
+        "type": "Fabric",
+        "databaseItemId": "616e9892-61c6-8304-42a2-bbae1368edf2",
+        "databaseItemName": "eh_audit_log_monitor"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "b9e6a7ee-ff73-4036-b829-91f6974f0d63",
+        "content": "let in_progress = \nJob_Details\n| where ItemRunID == \"e7b9963d-5cc3-428d-a4ff-d1c19dd32108\"\n    and ItemRunStatus =~ \"in progress\"\n| project ip_workspace_id = ItemWorkspaceID, ip_workspace_name = ItemWorkspaceName, ip_item_id = ItemID, ip_item_name = ItemName, item_run_id = ItemRunID, ip_item_run_status = ItemRunStatus, \n          ip_event_date_time = EventDateTime, ip_alert_email = AlertToEmail, ip_alert_teams_channel_id = AlertToTeamsChannelID, ip_alert_teams_group_id = AlertToTeamsGroupID;\nlet complete = \nJob_Details\n| where ItemRunID == \"e7b9963d-5cc3-428d-a4ff-d1c19dd32108\"\n    and ItemRunStatus !~ \"In Progress\"\n| project c_workspace_id = ItemWorkspaceID, c_workspace_name = ItemWorkspaceName, c_item_id = ItemID, c_item_name = ItemName, item_run_id = ItemRunID, c_item_run_status = ItemRunStatus, \n          c_event_date_time = EventDateTime, c_alert_email = AlertToEmail, c_alert_teams_channel_id = AlertToTeamsChannelID, c_alert_teams_group_id = AlertToTeamsGroupID;\nin_progress\n| join kind=inner complete on item_run_id\n| project workspace_id = ip_workspace_id, workspace_name = ip_workspace_name, item_id = ip_item_id, item_name = ip_item_name, item_run_id, item_start_status = ip_item_run_status, item_end_status = c_item_run_status,\n          start_time = ip_event_date_time, end_time = c_event_date_time, alert_email = c_alert_email, alert_teams_channel_id = c_alert_teams_channel_id, alert_teams_group_id = c_alert_teams_group_id",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "59dee504-6c57-49fe-8c3f-5f8590a96850",
+        "content": ".create-or-alter function \nwith (docstring = 'Returns details for an item run.', folder='job_details')\nget_item_run_details(p_item_run_id:string )\n{\n    let in_progress = \n    Item_Execution\n    | where ItemRunID == p_item_run_id\n        and ItemRunStatus =~ \"in progress\"\n    | project ip_workspace_id = ItemWorkspaceID, ip_workspace_name = ItemWorkspaceName, ip_item_id = ItemID, ip_item_name = ItemName, item_run_id = ItemRunID, ip_item_run_status = ItemRunStatus, ip_event_date_time = EventDateTime;\n    let complete = \n    Item_Execution\n    | where ItemRunID == p_item_run_id\n        and ItemRunStatus !~ \"in progress\"\n    | project c_workspace_id = ItemWorkspaceID, c_workspace_name = ItemWorkspaceName, c_item_id = ItemID, c_item_name = ItemName, item_run_id = ItemRunID, c_item_run_status = ItemRunStatus, c_event_date_time = EventDateTime;\n    in_progress\n    | join kind=leftouter complete on item_run_id\n    | project workspace_id = ip_workspace_id, workspace_name = ip_workspace_name, item_id = ip_item_id, item_name = ip_item_name, item_run_id, item_start_status = ip_item_run_status, item_end_status = c_item_run_status,\n              start_time = ip_event_date_time, end_time = c_event_date_time;\n}\n\n\n",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "4f8081fb-a14d-42cb-ab62-e60326567e2e",
+        "content": "\nget_item_run_details(\"bf1513e4-b3af-4d5c-af70-4404cbdd25c3\")\n\nItem_Execution\n| where ItemRunID == \"bf1513e4-b3af-4d5c-af70-4404cbdd25c3\"",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "cb57082b-9633-4413-9c2e-0b3f308dfcdd",
+        "content": "let in_progress = \n    Job_Details\n    | where ItemRunStatus =~ \"in progress\"\n    | project ip_workspace_id = ItemWorkspaceID, ip_workspace_name = ItemWorkspaceName, ip_item_id = ItemID, ip_item_name = ItemName, item_run_id = ItemRunID, ip_item_run_status = ItemRunStatus, ip_event_date_time = EventDateTime;",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "e78ac873-3ccc-4dd0-b7b0-8cfc5b5e0bc2",
+        "content": ".create table Activity_Execution\n(\nItemActivityName: string,\nItemActivityType: string,\nItemActivityRunID: string,\nItemActivityStatus: string,\nItemActivityEventDateTime: datetime,\nItemRunID: string \n)",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "39b5682d-8583-4f20-9579-34727c0ac8c8",
+        "content": ".create materialized-view MV on table Job_Details\n{\n    Job_Details\n    | join kind=leftouter (Activity_Execution) on ItemRunID\n}\n",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "92b24528-276b-45e7-9e62-d61d42efc5ae",
+        "content": "\ndeclare query_parameters (\n    PipelineRunID:guid\n);\nJob_Details\n| where ItemRunID == PipelineRunID \n| join kind=leftouter (Activity_Execution) on ItemRunID\n| project ItemWorkspaceName, ItemName, ItemRunID, ItemActivityName, ItemRunStatus, ItemActivityStatus\n\n\n\n",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "ab9747ce-baa3-43b1-ae45-599b756067bb",
+        "content": "// View a representation of the schema as a table with column names, column type, and data type.\nJob_Details\n| getschema",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "d78d327d-bb45-4343-b542-1c2aa579f9bd",
+        "content": "ItemDataEntity\n| where ItemRunID == '27ebfac3-3417-4229-9913-ada3bfd58e7d'",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "b02ff8fe-38c5-4bb9-a3ef-4777d37ccf5c",
+        "content": ".create materialized-view  MV on table ItemDataEntity\n{\nItemDataEntity\n| extend StartESTTime = DataEntityStartDateTime - 4h\n| extend EndESTTime = DataEntityEndDateTime - 4h\n| where StartESTTime >= startofday(now())\n| project InsertCount\n| summarize count() by InsertCount\n}\n\n\n",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "deae961b-4911-47bc-9178-fb5189080bc8",
+        "content": "let End =    \nItem_Execution\n    | where ItemRunStatus == \"Failed\" or ItemRunStatus == \"Succeeded\"\n    | extend ESTTime = EventDateTime - 4h\n    | project ItemID, ItemRunID, ItemWorkspaceName, PipelineName = ItemName, PipelineRunID = ItemRunID, End_Time = ESTTime, End_Status = ItemRunStatus;\nItem_Execution\n    | join kind=inner (End) on ItemID and ItemRunID\n    | extend ESTTime = EventDateTime - 4h\n    | where ItemRunStatus == \"In Progress\" and ESTTime >= startofday(now())\n    | extend Duration_Mins = datetime_diff('minute', End_Time, ESTTime)\n    | project ItemWorkspaceName, PipelineName = ItemName, PipelineRunID = ItemRunID, start_time = ESTTime, Start_Status = ItemRunStatus, End_Status, End_Time, Duration_Mins",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "6a99770c-4718-4b05-b6ed-9f71673edf12",
+        "content": "// IsEnabled (bool) - States if update policy is true - enabled, or false - disabled\n// source (string) - Name of the table that triggers invocation of the update policy\n// Query (string) - A query used to produce data for the update\n// IsTransactional (bool) - States if the update policy is transactional or not, default is false). If transactional and the update policy fails, the source table is not updated.\n// PropagateIngestionProperties (bool) - States if properties specified during ingestion to the source table, such as extent tags and creation time, apply to the target table\n// read more - https://aka.ms/updatepolicy\n\n.alter table Item_Execution_InProgress_Refined policy update\n```[{\n    \"IsEnabled\": true,\n    \"Source\": \"Item_Execution\",\n    \"Query\": \"Item_Execution_InProgress\",\n    \"IsTransactional\": false,\n    \"PropagateIngestionProperties\": false\n}]```",
+        "title": "In_Progress_Bucket_Policy",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "473eb8b3-d240-478b-9fbe-efb9bd475222",
+        "content": "\n\n.create-or-alter function Item_Execution_InProgress ()\n{\n    Item_Execution\n    | where ItemRunStatus == \"In Progress\"\n}\n",
+        "title": "In_Progress_Bucket_Function",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "a57aeab4-6e04-45a2-8c75-99b9c655242f",
+        "content": ".create table Item_Execution_Completed_Refined (\nItemWorkspaceID: string,\nItemWorkspaceName: string,\nItemID: string,\nItemName: string,\nItemType: string,\nItemGroupID: string,\nItemRunID: string,\nItemRunStatus: string,\nItemFolderPath: string,\nParentItemID: string,\nParentItemName: string,\nParentItemRunID: string,\nEventDateTime: datetime,\nTriggerID: string,\nTriggerName: string,\nTriggerType: string,\nTriggerDateTime: datetime,\nTriggerEventSource: string,\nTriggerEventSubject: string,\nTriggerFileName: string,\nTriggerFolderPather: string,\nAlertToTeamsGroupID: string,\nAlertToTeamsChannelID: string,\nAlertToEmail: string,\nExecutionErrorMessage: string,\nCreateBy: string,\nCreatedDateTime: datetime\n)\n\n",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "d6350d92-3ad3-4aa1-93cb-f9e570245582",
+        "content": "Item_Execution\n    | where ItemRunStatus == \"In Progress\"",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "d5fe9815-9004-4d2e-b588-173393b7eacd",
+        "content": "// IsEnabled (bool) - States if update policy is true - enabled, or false - disabled\n// source (string) - Name of the table that triggers invocation of the update policy\n// Query (string) - A query used to produce data for the update\n// IsTransactional (bool) - States if the update policy is transactional or not, default is false). If transactional and the update policy fails, the source table is not updated.\n// PropagateIngestionProperties (bool) - States if properties specified during ingestion to the source table, such as extent tags and creation time, apply to the target table\n// read more - https://aka.ms/updatepolicy\n\n.alter table Item_Execution_Completed_Refined policy update\n```[{\n    \"IsEnabled\": true,\n    \"Source\": \"Item_Execution\",\n    \"Query\": \"Item_Execution_Completed\",\n    \"IsTransactional\": false,\n    \"PropagateIngestionProperties\": false\n}]```",
+        "title": "Completed_Bucket_Policy",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "b980f873-db9a-49c9-95bf-6fd3864b28e7",
+        "content": "\n.create-or-alter function Item_Execution_Completed ()\n{\n    Item_Execution\n    | where ItemRunStatus == \"Failed\" or ItemRunStatus == \"Succeeded\"\n}",
+        "title": "Completed_Bucket_Function",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "dbbcb31c-8a7d-41c8-9329-5c89e5cec23d",
+        "content": ".create-or-alter function Item_Data_Entity_Refined ()\n{\n    ItemDataEntity\n    | project ABFSPath, DataEntityActivityRunID, DataEntityActivityType, DataEntityActivityName, DataEntityStartDateTime, DataEntityEndDateTime, DataEntityExecutionStatus,\n     DataEntityLakehouseID, DataEntityLakehouseName, DataEntityLoadType, DataEntityName, DataEntityNameSpace, DataEntityWorkspaceID, DataEntityWorkspaceName, DeleteCount, FileName, FileNameWithExt,\n    FlowType, InsertCount, ItemRunID, MaxWatermark, RelativePath, RowsCopied, RowsRead, UpdateCount, CopyDuration, FilesRead, FilesWritten, CreatedBy, CreatedDateTime, ExecutionErrorMessage, IntegrationGroupKey,\n    IntegrationTaskKey, RelatedIntegrationTaskKey\n}\n",
+        "title": "Item_Data_Entity_Refined Function",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "af767092-9427-43d6-b411-f171297a4cee",
+        "content": ".create table Item_Data_Entity_Refined\n(\nABFSPath: string, \nDataEntityActivityRunID: string,  \nDataEntityActivityType: string, \nDataEntityActivityName: string, \nDataEntityStartDateTime: datetime, \nDataEntityEndDateTime: datetime, \nDataEntityExecutionStatus: string,\nDataEntityLakehouseID: string, \nDataEntityLakehouseName: string, \nDataEntityLoadType: string, \nDataEntityName: string, \nDataEntityNameSpace: string, \nDataEntityWorkspaceID: string, \nDataEntityWorkspaceName: string, \nDeleteCount: string, \nFileName: string, \nFileNameWithExt: string,\nFlowType: string, \nInsertCount: long, \nItemRunID: string, \nMaxWatermark: string, \nRelativePath: string, \nRowsCopied: long, \nRowsRead: long, \nUpdateCount: string, \nCopyDuration: long, \nFilesRead: long, \nFilesWritten: long, \nCreatedBy: string, \nCreatedDateTime: datetime, \nExecutionErrorMessage: string, \nIntegrationGroupKey: long,\nIntegrationTaskKey: long, \nRelatedIntegrationTaskKey : long\n)\n\n",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "e0004121-b667-46f6-bfef-a8a3485f2e55",
+        "content": ".alter table Item_Data_Entity_Refined policy update\n```[{\n    \"IsEnabled\": true,\n    \"Source\": \"ItemDataEntity\",\n    \"Query\": \"Item_Data_Entity_Refined\",\n    \"IsTransactional\": false,\n    \"PropagateIngestionProperties\": false\n}]```",
+        "title": "ItemDataEntityUPdatePolicy",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "2758427e-ca2c-46c2-a9c2-f35945051d84",
+        "content": "// View a representation of the schema as a table with column names, column type, and data type.\nItem_Data_Entity_Refined\n| where DataEntityActivityName == \"DummyData\" and DataEntityExecutionStatus == \"Failed\"\n| order by DataEntityStartDateTime desc \n",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "52ad150b-39d8-4000-8b1c-d0f0eddda955",
+        "content": "let end =    \nItem_Execution_Completed_Refined\n    | project ItemRunStatus, ItemWorkspaceID;\nlet start =\nItem_Execution_InProgress_Refined\n    | project ItemRunStatus, ItemWorkspaceID;\nstart\n    | join kind=inner end on ItemWorkspaceID\n    | distinct ItemRunStatus",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "a7b99f55-eae9-422f-81f7-3864828b11fd",
+        "content": "Item_Execution\n| distinct ItemRunStatus",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      },
+      {
+        "id": "805d92e8-14a6-4b0e-b939-f0dd8b1122b0",
+        "content": "\n\n// View a representation of the schema as a table with column names, column type, and data type.\nItem_Execution_Completed_Refined\n| getschema\n",
+        "title": "",
+        "dataSourceId": "8eca9a6a-2579-4a33-82e8-1e236e013976"
+      }
+    ]
+  }
+}

@@ -1,0 +1,87 @@
+table executionerror
+	lineageTag: 3e051af0-cf08-41a5-9181-7caec18ce375
+	sourceLineageTag: [Refined].[executionerror]
+
+	column ExecutionErrorKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 6cf7bdc0-3244-4191-9d26-fe458a33a3ab
+		sourceLineageTag: ExecutionErrorKey
+		summarizeBy: count
+		sourceColumn: ExecutionErrorKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemExecutionKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: bc1bc004-4cc1-4ef3-a811-95ccbe44358e
+		sourceLineageTag: ItemExecutionKey
+		summarizeBy: none
+		sourceColumn: ItemExecutionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExecutionErrorMessage
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 2ab757a7-445f-4110-a014-04ac5ec2e142
+		sourceLineageTag: ExecutionErrorMessage
+		summarizeBy: none
+		sourceColumn: ExecutionErrorMessage
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExecutionErrorScope
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 3196018e-0c32-490d-aabd-38b3dba07892
+		sourceLineageTag: ExecutionErrorScope
+		summarizeBy: none
+		sourceColumn: ExecutionErrorScope
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExecutionErrorReferenceKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f55750ef-d038-4e4a-ba3d-71b25519fa56
+		sourceLineageTag: ExecutionErrorReferenceKey
+		summarizeBy: count
+		sourceColumn: ExecutionErrorReferenceKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedBy
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 14049699-2391-4a5a-a8cb-3d04dce2544a
+		sourceLineageTag: CreatedBy
+		summarizeBy: none
+		sourceColumn: CreatedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDateTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: faab8c84-70d9-4792-9e0b-07cd309526cd
+		sourceLineageTag: CreatedDateTime
+		summarizeBy: none
+		sourceColumn: CreatedDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	partition executionerror = entity
+		mode: directLake
+		source
+			entityName: executionerror
+			schemaName: Refined
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

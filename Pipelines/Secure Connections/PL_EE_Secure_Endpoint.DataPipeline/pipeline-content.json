@@ -1,0 +1,151 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Web Get AKV Client ID",
+        "type": "WebActivity",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "method": "GET",
+          "headers": {},
+          "relativeUrl": "/rti-client-id/b70776af68f14b3391c2c6844c1ac9d4?api-version=7.0"
+        },
+        "externalReferences": {
+          "connection": "3b490f00-3fa0-4aca-bb27-4be752009bce"
+        }
+      },
+      {
+        "name": "Web Get AKV Secret",
+        "type": "WebActivity",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "method": "GET",
+          "headers": {},
+          "turnOffAsync": false,
+          "relativeUrl": "/rti-client-secret/86bb50776c5449efac921ae32fb04d50/?api-version=7.0"
+        },
+        "externalReferences": {
+          "connection": "3b490f00-3fa0-4aca-bb27-4be752009bce"
+        }
+      },
+      {
+        "name": "Web Get Eventhub Token",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "Web Get AKV Client ID",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Web Get AKV Secret",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "body": {
+            "value": "@concat('grant_type=client_credentials',\n'&resource=https://eventhubs.azure.net',\n'&client_id=',\nactivity('Web Get AKV Client ID').output.value,\n'&client_secret=',\nactivity('Web Get AKV Secret').output.value\n)",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "95c0b3a5-b186-45e7-bbe1-b21a08f39197"
+        }
+      },
+      {
+        "name": "Web Send To Evenstream Endpoint",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "Web Get Eventhub Token",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "method": "POST",
+          "headers": {
+            "Authorization": {
+              "value": "@concat('Bearer ',\nactivity('Web Get Eventhub Token').output.access_token   \n)",
+              "type": "Expression"
+            },
+            "Content-Type": "application/atom+xml;type=entry;charset=utf-8"
+          },
+          "relativeUrl": "/es_5be56bb7-2b7c-410c-908e-2df34a53172b/messages",
+          "body": {
+            "value": "@concat('{',\n'\"ExecutionErrorMessage\": \"', pipeline().parameters.ExecutionErrorMessage, '\", ',\n'\"ExecutionErrorScope\": \"', pipeline().parameters.ExecutionErrorScope, '\", ',\n'\"ItemRunID\": \"', pipeline().parameters.ItemRunID, '\", ',\n'\"CreatedBy\": \"', pipeline().parameters.CreatedBy, '\", ',\n'\"CreatedDateTime\": \"', pipeline().parameters.CreateDateTime,  '\"',\n'}')",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "e771e494-ff7d-4d62-8153-fa05d192b22c"
+        }
+      }
+    ],
+    "parameters": {
+      "ExecutionErrorMessage": {
+        "type": "string"
+      },
+      "ExecutionErrorScope": {
+        "type": "string"
+      },
+      "CreatedBy": {
+        "type": "string"
+      },
+      "CreateDateTime": {
+        "type": "string"
+      },
+      "ItemRunID": {
+        "type": "string"
+      },
+      "ItemActivityRunID": {
+        "type": "string"
+      },
+      "FlowType": {
+        "type": "string"
+      },
+      "DataEntityNameSpace": {
+        "type": "string"
+      },
+      "DataEntityName": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Fabric Audit & Logging"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "80fe3759-0b02-94b3-4bd9-2682e88c8f15"
+  }
+}

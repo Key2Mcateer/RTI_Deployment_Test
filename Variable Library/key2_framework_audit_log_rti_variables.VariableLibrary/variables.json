@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/variableLibrary/definition/variables/1.0.0/schema.json",
+  "variables": [
+    {
+      "name": "ItemWorkspaceID",
+      "note": "",
+      "type": "String",
+      "value": "7d9824ce-f3a9-4955-9014-bf8db268c796"
+    },
+    {
+      "name": "var_Alert_TeamsChannelID",
+      "note": "",
+      "type": "String",
+      "value": "19:3e7030f79fcb40898dcca89b64d6def9@thread.tacv2"
+    },
+    {
+      "name": "var_Alert_TeamsGroupID",
+      "note": "",
+      "type": "String",
+      "value": "06ce2c47-3f69-48fd-a958-1bf06b4eb6f2"
+    },
+    {
+      "name": "var_FailureAlertRecipient",
+      "note": "",
+      "type": "String",
+      "value": "key2.notifications@Key2Consulting.com"
+    },
+    {
+      "name": "var_Alert_EmailRecipient",
+      "note": "",
+      "type": "String",
+      "value": "key2.notifications@Key2Consulting.com"
+    },
+    {
+      "name": "var_Alert_MaxAgeMinutesDefault",
+      "note": "",
+      "type": "Integer",
+      "value": 120
+    },
+    {
+      "name": "var_Alert_WorkspaceDisplayName",
+      "note": "",
+      "type": "String",
+      "value": "key2_framework_audit_log_rti"
+    },
+    {
+      "name": "var_Alert_IsSendEmail",
+      "note": "",
+      "type": "Boolean",
+      "value": true
+    },
+    {
+      "name": "var_Alert_IsSendTeamsMessage",
+      "note": "",
+      "type": "Boolean",
+      "value": true
+    }
+  ]
+}

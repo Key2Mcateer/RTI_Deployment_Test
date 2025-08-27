@@ -1,0 +1,36 @@
+relationship 633da37a-533f-e51d-c98e-173b0315b6f6
+	isActive: false
+	fromColumn: executionerror.ItemExecutionKey
+	toColumn: itemactivityresult.ItemExecutionKey
+
+relationship b39537b5-fad4-fcce-450c-42e12ddb7467
+	fromColumn: itemactivityexecution.DateKey
+	toColumn: DateTable.DateKey
+
+relationship 228fe25c-5f55-17cf-c979-6fcf30003d3c
+	isActive: false
+	fromColumn: itemdataentity.DateKey
+	toColumn: DateTable.DateKey
+
+relationship a08e50fc-8324-81e3-945d-db5a222f04b3
+	fromColumn: itemexecution.ItemExecutionKey
+	toColumn: itemactivityexecution.ItemExecutionKey
+
+relationship cd310316-1cbe-3948-d2e7-e99fa0bfa047
+	fromColumn: itemactivityexecution.ItemExecutionKey
+	toColumn: itemactivityresult.ItemExecutionKey
+
+relationship 8e9a8ee8-e9b3-77fb-2689-43fd5bbc5270
+	isActive: false
+	fromColumn: itemdataentity.ItemExecutionKey
+	toColumn: itemexecution.ItemExecutionKey
+
+relationship fcdba530-1c0d-868e-4ee3-679f099fb9d3
+	fromColumn: executionerror.ItemExecutionKey
+	toColumn: itemactivityexecution.ItemExecutionKey
+
+relationship e014b100-5729-02c9-d27c-d765a42b8a5a
+	isActive: false
+	fromColumn: DateTable.DateKey
+	toColumn: itemexecution.DateKey
+

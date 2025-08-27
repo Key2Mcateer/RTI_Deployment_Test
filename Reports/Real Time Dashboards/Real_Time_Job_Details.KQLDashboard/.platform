@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDashboard",
+    "displayName": "Real_Time_Job_Details",
+    "description": "Real_Time_Job_Details"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "145e6af1-8cdb-b959-420f-65b35fe488ec"
+  }
+}

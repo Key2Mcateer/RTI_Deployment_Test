@@ -1,0 +1,2527 @@
+{
+  "schema_version": "60",
+  "autoRefresh": {
+    "enabled": true,
+    "defaultInterval": "1s",
+    "minInterval": "30s"
+  },
+  "tiles": [
+    {
+      "id": "59b81a9b-cfdd-4c02-bb63-767b15660f35",
+      "title": "",
+      "visualType": "table",
+      "pageId": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e",
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 24,
+        "height": 5
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "bce9a2d4-ae79-4d71-8a1a-d59eea3ce6ab"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": false,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": true,
+        "crossFilter": [],
+        "drillthrough": [
+          {
+            "pairs": [
+              {
+                "parameterId": "0ac4db37-5640-4996-ba73-611b5b684234",
+                "property": "PipelineRunID"
+              }
+            ],
+            "destinationPages": [
+              "d33eee70-d275-4d2b-9ad9-42a181bd45a6"
+            ],
+            "disabled": false
+          }
+        ],
+        "table__renderLinks": [],
+        "colorRules": [
+          {
+            "id": "7e7465d3-1f4d-4d70-913b-c65342a2ea12",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "start_status",
+                "values": [
+                  "In Progress"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "blue",
+            "tag": "",
+            "icon": "insights",
+            "ruleName": "",
+            "visualType": "table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "07e5f70b-fdc4-4935-8b11-953c3c593190",
+      "title": "",
+      "visualType": "table",
+      "pageId": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e",
+      "layout": {
+        "x": 0,
+        "y": 15,
+        "width": 24,
+        "height": 5
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "f45f4b6c-59d3-41e7-be62-cca96054b26e"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": false,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [
+          {
+            "pairs": [
+              {
+                "parameterId": "0ac4db37-5640-4996-ba73-611b5b684234",
+                "property": "PipelineRunID"
+              }
+            ],
+            "destinationPages": [
+              "d33eee70-d275-4d2b-9ad9-42a181bd45a6"
+            ],
+            "disabled": false
+          }
+        ],
+        "table__renderLinks": [
+          {
+            "urlColumn": "PipelineRunID",
+            "displayColumn": "PipelineRunID",
+            "disabled": false
+          }
+        ],
+        "colorRules": [
+          {
+            "id": "e273b3be-b7c9-4b30-833b-418ff4097126",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "Success_status",
+                "values": [
+                  "Succeeded"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "completed",
+            "ruleName": "",
+            "visualType": "table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4ce0b573-ecd7-404c-8d30-a74d1b8c3b39",
+      "title": "Count of In Progress",
+      "visualType": "card",
+      "pageId": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e",
+      "layout": {
+        "x": 18,
+        "y": 4,
+        "width": 6,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "4578bb60-ab1c-4759-bafd-32c3e398fd23"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "large",
+        "multiStat__valueColumn": "Count",
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "06bca040-8365-4e7c-b940-d0ccf6ec0f27",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "Count",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "blue",
+            "tag": "",
+            "icon": "insights",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c50127bc-6f1a-4167-83b5-3a7d6e9ce00f",
+      "title": "Count of Failures",
+      "visualType": "card",
+      "pageId": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e",
+      "layout": {
+        "x": 18,
+        "y": 20,
+        "width": 6,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "e1da185c-fb85-4773-90a9-29392e57a009"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "63316a9c-0c83-42a6-98cb-fde279f1b355",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "Count",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "red",
+            "tag": "",
+            "icon": "warning",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2f947b11-c43c-44b2-842e-0d405f2776bc",
+      "title": "Count of Success",
+      "visualType": "card",
+      "pageId": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e",
+      "layout": {
+        "x": 18,
+        "y": 12,
+        "width": 6,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "1d64a5b1-6b12-4b93-a36b-938b9af0e909"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "3425cda3-866a-4140-8367-6d4311a6de29",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "Count",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "completed",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a0485051-6fe1-4b61-940e-34dc89313b52",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 4
+      },
+      "markdownText": "# Live Job Details Status for Today in Eastern Time zone\r\n### This report shows a live snapshot of todays ETL job statuses in descending order\r\n*Note - *visuals are refreshed continuously and support drill through*",
+      "visualOptions": {}
+    },
+    {
+      "id": "efb91f0f-42d1-43fc-9efd-a6f626066f19",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e",
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 18,
+        "height": 3
+      },
+      "markdownText": "## Current In Progress ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "636dc880-43e4-4592-8843-143c2d426b18",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e",
+      "layout": {
+        "x": 0,
+        "y": 12,
+        "width": 18,
+        "height": 3
+      },
+      "markdownText": "## Successes ##\n*Note - *Drillthrough is available to PipelineRundID for specifics, please right click a PipelineRundID and drill through as needed.*",
+      "visualOptions": {}
+    },
+    {
+      "id": "c7e85e1f-e4b7-447b-990c-ded2995eb91f",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e",
+      "layout": {
+        "x": 0,
+        "y": 20,
+        "width": 18,
+        "height": 3
+      },
+      "markdownText": "## Failures ##\n*Note - *Drillthrough is available to PipelineRundID for specifics, please right click a PipelineRundID and drill through as needed.*",
+      "visualOptions": {}
+    },
+    {
+      "id": "267595e9-dda9-4966-bfda-2722157841ac",
+      "title": "",
+      "visualType": "card",
+      "pageId": "3d277105-e5cf-4d79-bb6e-db47fed86f8a",
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 8,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "042958b6-adc8-4d07-8b2d-68bcc875a3c3"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "69acc10d-2623-44c2-8244-2613bf209bd0",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "Total_Insert_Count",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "blue",
+            "tag": "",
+            "icon": "arrowUp",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "b6cfa6df-438b-4436-a668-cef95030a5eb",
+      "title": "",
+      "visualType": "card",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 6,
+        "y": 6,
+        "width": 6,
+        "height": 4
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "c764b9ff-4819-4960-9d33-47389d9ede80"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "a4d509f8-7d94-4da1-9a12-ba86df87cc70",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "Count",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "completed",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c6061d58-5228-4df9-ba09-f3d40474d4d7",
+      "title": "",
+      "visualType": "card",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 12,
+        "y": 6,
+        "width": 6,
+        "height": 4
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "73e63e39-e7f9-49ab-97d5-3627e462cd9b"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "abf7fcae-0094-4fd2-9525-85a7930a2a2e",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "Count",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "red",
+            "tag": "",
+            "icon": "warning",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "1c60b6cd-0d5a-4167-bc5e-93f4777576ba",
+      "title": "",
+      "visualType": "table",
+      "pageId": "d33eee70-d275-4d2b-9ad9-42a181bd45a6",
+      "layout": {
+        "x": 0,
+        "y": 15,
+        "width": 24,
+        "height": 17
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "a924c01a-8d57-46d4-a158-4fa99cc925b8"
+      },
+      "hideTitle": true,
+      "visualOptions": {
+        "table__enableRenderLinks": false,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "crossFilterDisabled": true,
+        "drillthroughDisabled": false,
+        "crossFilter": [
+          {
+            "interaction": "column",
+            "property": "ItemRunID",
+            "parameterId": "0ac4db37-5640-4996-ba73-611b5b684234",
+            "disabled": false
+          }
+        ],
+        "drillthrough": [
+          {
+            "pairs": [
+              {
+                "parameterId": "0f88440c-2a83-4707-b362-ba71fb2689ca",
+                "property": "ActivityRunID"
+              }
+            ],
+            "destinationPages": [
+              "0ca9a934-799d-4cfb-8627-67f931df7cfd"
+            ],
+            "disabled": false
+          }
+        ],
+        "table__renderLinks": [],
+        "colorRules": [
+          {
+            "id": "913305df-0cf9-413e-873b-d52a1318c0a9",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "PipelineRunStatus",
+                "values": [
+                  "Succeeded"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "completed",
+            "ruleName": "",
+            "visualType": "table"
+          },
+          {
+            "id": "41c5d044-8c2b-4757-bc3e-b2adfee9fe56",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "Status",
+                "values": [
+                  "Failed"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "red",
+            "tag": "",
+            "icon": "warning",
+            "ruleName": "",
+            "visualType": "table"
+          },
+          {
+            "id": "a02c2786-7deb-42b0-a8c1-6d8a658f6449",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "Status",
+                "values": [
+                  "Succeeded"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "completed",
+            "ruleName": "",
+            "visualType": "table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "7231b108-1697-45be-ad01-902b2ddac135",
+      "title": "",
+      "visualType": "table",
+      "pageId": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e",
+      "layout": {
+        "x": 0,
+        "y": 23,
+        "width": 24,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "ab4c1f1f-b81d-4372-81b7-af3ae140cdc4"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": false,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [
+          {
+            "pairs": [
+              {
+                "parameterId": "0ac4db37-5640-4996-ba73-611b5b684234",
+                "property": "PipelineRunID"
+              }
+            ],
+            "destinationPages": [
+              "d33eee70-d275-4d2b-9ad9-42a181bd45a6"
+            ],
+            "disabled": false
+          }
+        ],
+        "table__renderLinks": [],
+        "colorRules": [
+          {
+            "id": "b9ceaca1-08d9-45aa-b18c-11dd28b8b24f",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "Failed_status",
+                "values": [
+                  "Failed"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "red",
+            "tag": "",
+            "icon": "warning",
+            "ruleName": "",
+            "visualType": "table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2ab393ab-51b2-4937-86cf-73f7415bd1f3",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "d33eee70-d275-4d2b-9ad9-42a181bd45a6",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 4
+      },
+      "markdownText": "# Job Execution Activity Overview\n### This report shows all activtiy details for the selected Job execution\n*Note - *the specifics come from the Job_Details_Overview page, please drill through from a PipelineRunID to properly utilize this page.  Additionally, Drill through by ActivityRunID for further investigation*",
+      "visualOptions": {}
+    },
+    {
+      "id": "bc886435-bf68-4b41-8a4e-a0513292d055",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 4
+      },
+      "markdownText": "# Live High Level overview of Job and actvity details\n### This page provided a high level summary of current Job and activity process statuses for the current day.\n*Note - *This page does not support drill through*\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "f6a0eb6f-0b7e-451b-ae01-9b07f3fecf76",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "3d277105-e5cf-4d79-bb6e-db47fed86f8a",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 2
+      },
+      "markdownText": "## Total Insert Count For Current Day ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "fad8cebf-4be8-4311-9d5e-0dabcc6f3955",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 6,
+        "y": 4,
+        "width": 6,
+        "height": 2
+      },
+      "markdownText": "## Successful Pipelines ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "ead6f59c-08b3-4f21-bdd1-6c7c73944dfa",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 12,
+        "y": 4,
+        "width": 6,
+        "height": 2
+      },
+      "markdownText": "## Failed Pipelines ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "26302ee1-0f22-4234-b780-06b60f42efea",
+      "title": "",
+      "visualType": "card",
+      "pageId": "d33eee70-d275-4d2b-9ad9-42a181bd45a6",
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 8,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "e1c5937a-0189-46c8-b3e8-cc5affa44d1c"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "2caca6b3-e168-4d3a-8af5-ba2a2523b479",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "ItemRunID",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "yellow",
+            "tag": "",
+            "icon": "tvMonitor",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "5897ffec-3e2a-4fff-b8a2-d678d54f4e3c",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "d33eee70-d275-4d2b-9ad9-42a181bd45a6",
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 8,
+        "height": 2
+      },
+      "markdownText": "## PipelineName ##",
+      "visualOptions": {}
+    },
+    {
+      "id": "e3253915-2202-46b1-a90c-eaa4c602603c",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "d33eee70-d275-4d2b-9ad9-42a181bd45a6",
+      "layout": {
+        "x": 16,
+        "y": 4,
+        "width": 8,
+        "height": 2
+      },
+      "markdownText": "## Total Data Insert Count ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "2c1b031c-2d10-46e7-af2f-168ddeb04cc6",
+      "title": "",
+      "visualType": "card",
+      "pageId": "d33eee70-d275-4d2b-9ad9-42a181bd45a6",
+      "layout": {
+        "x": 16,
+        "y": 6,
+        "width": 8,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "93d1815e-d006-413f-b32d-bf0fafcb05a5"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "d8628635-5d20-4b4d-b547-fda93a3ebbee",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "Total_Insert_Count",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "blue",
+            "tag": "",
+            "icon": "arrowUp",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e40da697-a904-483f-b81a-fc905e28da95",
+      "title": "",
+      "visualType": "card",
+      "pageId": "d33eee70-d275-4d2b-9ad9-42a181bd45a6",
+      "layout": {
+        "x": 8,
+        "y": 6,
+        "width": 8,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "a98941c0-db23-4a63-b0eb-d128aee88a7e"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "d80442d6-a476-4099-bab4-d10cfd3fd74d",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "ItemWorkspaceName",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "repair",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "09dfda74-3a47-4aaa-a34d-b8b5aa66c175",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "d33eee70-d275-4d2b-9ad9-42a181bd45a6",
+      "layout": {
+        "x": 8,
+        "y": 4,
+        "width": 8,
+        "height": 2
+      },
+      "markdownText": "## WorksSpaceName ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "9d969d81-55f5-45cd-a5c1-a06e1f42214f",
+      "title": "",
+      "visualType": "card",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 6,
+        "height": 4
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "07e067bd-69bb-4012-b8e7-d6a8b7978399"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "caf0ba19-0368-49cc-a893-c494ab9b2823",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "Count",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "blue",
+            "tag": "",
+            "icon": "insights",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bb9d35d6-7554-43c1-b464-1c090bde383a",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 6,
+        "height": 2
+      },
+      "markdownText": "## In Progress Pipelines ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "4774b50a-57e6-41c9-831a-05d114734f00",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 24,
+        "height": 2
+      },
+      "markdownText": "## Top Ten Longest Running Jobs ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "4fd31ef8-e32c-4735-b658-e73f9c5beedd",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 18,
+        "y": 4,
+        "width": 6,
+        "height": 2
+      },
+      "markdownText": "## Pipelines Completed ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "6244222c-93bb-499f-b41d-8d65abf36d54",
+      "title": "",
+      "visualType": "card",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 18,
+        "y": 6,
+        "width": 6,
+        "height": 4
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "a49cb4e6-d988-40e6-9f44-02f4e4d90a16"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "2f060ce7-2329-4d2b-bc4e-e38bc9cbe2d4",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "Count",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "yellow",
+            "tag": "",
+            "icon": "football",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "09c6a234-4843-495a-8937-ac74743b9629",
+      "title": "",
+      "visualType": "table",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 0,
+        "y": 12,
+        "width": 24,
+        "height": 7
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "f2a4ad38-a836-4713-8e65-dd465a425082"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": false,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [
+          {
+            "pairs": [
+              {
+                "parameterId": "0ac4db37-5640-4996-ba73-611b5b684234",
+                "property": "PipelineRunID"
+              }
+            ],
+            "destinationPages": [
+              "d33eee70-d275-4d2b-9ad9-42a181bd45a6"
+            ],
+            "disabled": false
+          }
+        ],
+        "table__renderLinks": [],
+        "colorRules": [
+          {
+            "id": "f060aa34-548a-48d3-8ea7-7e8dfd1223d5",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "End_Status",
+                "values": [
+                  "Succeeded"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "completed",
+            "ruleName": "",
+            "visualType": "table"
+          },
+          {
+            "id": "a1779a9a-a306-40e6-bc6d-89abd521acfe",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "End_Status",
+                "values": [
+                  "Failed"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "red",
+            "tag": "",
+            "icon": "warning",
+            "ruleName": "",
+            "visualType": "table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e4654b63-6e52-42d0-8243-43eb35f910cb",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 0,
+        "y": 19,
+        "width": 24,
+        "height": 2
+      },
+      "markdownText": "## Top Ten Highest Insert Count ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "5e543a6b-81e8-4055-be58-b005f7213eec",
+      "title": "",
+      "visualType": "table",
+      "pageId": "a49ac48a-0a17-49cc-87bb-294cf9666609",
+      "layout": {
+        "x": 0,
+        "y": 21,
+        "width": 24,
+        "height": 8
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "08dca67a-be22-406a-9e3f-8d54914ad10e"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": false,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [],
+        "table__renderLinks": [],
+        "colorRules": [
+          {
+            "id": "443463bb-f655-4e58-9117-aa5f4c5fcabc",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "InsertCount",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "blue",
+            "tag": "",
+            "icon": null,
+            "ruleName": "",
+            "visualType": "table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f161a4cf-a48a-4077-9c73-4c2b60989e23",
+      "title": "",
+      "visualType": "card",
+      "pageId": "d33eee70-d275-4d2b-9ad9-42a181bd45a6",
+      "layout": {
+        "x": 0,
+        "y": 11,
+        "width": 24,
+        "height": 4
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "37ba4432-81e1-4798-8280-7f8075172600"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": "ErrorMessage",
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "f32114d6-01b1-456c-80e8-4b7d5fdbec1a",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "!=",
+                "column": "ErrorMessage",
+                "values": [
+                  "No Errors Found"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "red",
+            "tag": "",
+            "icon": "critical",
+            "ruleName": "",
+            "visualType": "card"
+          },
+          {
+            "id": "1fe432a0-e8a8-470e-a37b-8962376b5a92",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "ErrorMessage",
+                "values": [
+                  "No Errors Found"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "completed",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "784553b5-8cd0-45d9-97a5-137c9a23ecb4",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "d33eee70-d275-4d2b-9ad9-42a181bd45a6",
+      "layout": {
+        "x": 0,
+        "y": 9,
+        "width": 24,
+        "height": 2
+      },
+      "markdownText": "## ItemExecution Error Message ##",
+      "visualOptions": {}
+    },
+    {
+      "id": "bb4e4e7e-a386-4646-95ff-e8533a3dacd7",
+      "title": "New tile",
+      "visualType": "card",
+      "pageId": "0ca9a934-799d-4cfb-8627-67f931df7cfd",
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 8,
+        "height": 4
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "640978d8-6a69-4a4b-a55c-1bc052ab9117"
+      },
+      "hideTitle": true,
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "c2b17ac5-fb39-401c-996e-fb4c03217986",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "DataEntityActivityName",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "yellow",
+            "tag": "",
+            "icon": "insights",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e48cd7e3-d294-4499-b1d4-61689e30bbd5",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "0ca9a934-799d-4cfb-8627-67f931df7cfd",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 4
+      },
+      "markdownText": "# Activity Execution Overview\n### This report shows all activtiy details for the selected activity\n*Note - *the specifics come from the Job Execution Activity Overview page, please drill through a ActivityRunID to properly utilize this page.*",
+      "visualOptions": {}
+    },
+    {
+      "id": "79260667-1fe0-4dc7-8f57-0e1de14c477f",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "0ca9a934-799d-4cfb-8627-67f931df7cfd",
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 8,
+        "height": 2
+      },
+      "markdownText": "## Activity Name ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "c95e38ac-5621-4f3d-b5a3-6b428513e91e",
+      "title": "",
+      "visualType": "card",
+      "pageId": "0ca9a934-799d-4cfb-8627-67f931df7cfd",
+      "layout": {
+        "x": 15,
+        "y": 6,
+        "width": 9,
+        "height": 4
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "e8555f58-0c6d-4ef8-a4f3-22fcd611d87b"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "98e15e90-672e-4211-8335-930db5fa14a2",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "InsertCount",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "blue",
+            "tag": "",
+            "icon": "arrowUp",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "083ed420-b5d6-4657-a732-46c59399dfb3",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "0ca9a934-799d-4cfb-8627-67f931df7cfd",
+      "layout": {
+        "x": 15,
+        "y": 4,
+        "width": 9,
+        "height": 2
+      },
+      "markdownText": "## Activity Insert Count ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "e10ea3cb-6b92-4fd6-a856-74a12d359312",
+      "title": "New tile",
+      "visualType": "card",
+      "pageId": "0ca9a934-799d-4cfb-8627-67f931df7cfd",
+      "layout": {
+        "x": 8,
+        "y": 6,
+        "width": 7,
+        "height": 4
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "019ccecb-28cf-4bb7-b5e9-1655802f7f86"
+      },
+      "hideTitle": true,
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": "DataEntityWorkspaceName",
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "colorRules": [
+          {
+            "id": "2946474f-e596-4e80-82ae-efd8893c0ee1",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": ">=",
+                "column": "DataEntityWorkspaceName",
+                "values": [
+                  "0"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "repair",
+            "ruleName": "",
+            "visualType": "card"
+          }
+        ]
+      }
+    },
+    {
+      "id": "eecbe376-456c-4a4b-8279-557f444ee1f6",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "0ca9a934-799d-4cfb-8627-67f931df7cfd",
+      "layout": {
+        "x": 8,
+        "y": 4,
+        "width": 7,
+        "height": 2
+      },
+      "markdownText": "## Workspace Name ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "29306437-e84a-47c5-b5f2-43059563c1ba",
+      "title": "New tile",
+      "hideTitle": true,
+      "visualType": "markdown",
+      "pageId": "0ca9a934-799d-4cfb-8627-67f931df7cfd",
+      "layout": {
+        "x": 0,
+        "y": 12,
+        "width": 24,
+        "height": 7
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "be687f52-7f96-4c65-b9e2-822a33c062b5"
+      },
+      "visualOptions": {
+        "xColumn": null,
+        "imageAllowlist": ""
+      }
+    },
+    {
+      "id": "91cf9399-3c09-4759-8d28-d5993d38e3f7",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "0ca9a934-799d-4cfb-8627-67f931df7cfd",
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 24,
+        "height": 2
+      },
+      "markdownText": "## ItemDataEntity Error Message ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "c3468a7d-890f-4c52-bcb3-ccc7f9e6bfbf",
+      "title": "",
+      "visualType": "table",
+      "pageId": "24081b98-0c36-4635-a722-26128b00ddb2",
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 24,
+        "height": 12
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "5ae22bff-b793-4d16-94ea-1a591960905c"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": true,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [
+          {
+            "interaction": "column",
+            "property": "ItemRunStatus",
+            "parameterId": "975e0b38-24a9-4013-8d52-f1f369579865",
+            "disabled": false
+          }
+        ],
+        "drillthrough": [
+          {
+            "pairs": [
+              {
+                "parameterId": "0ac4db37-5640-4996-ba73-611b5b684234",
+                "property": "ItemRunID"
+              }
+            ],
+            "destinationPages": [
+              "d33eee70-d275-4d2b-9ad9-42a181bd45a6"
+            ],
+            "disabled": false
+          }
+        ],
+        "table__renderLinks": [],
+        "colorRules": [
+          {
+            "id": "90a701fe-c884-4c09-a417-da12d6be8364",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "ItemRunStatus",
+                "values": [
+                  "Failed"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "red",
+            "tag": "",
+            "icon": "warning",
+            "ruleName": "",
+            "visualType": "table"
+          },
+          {
+            "id": "46d723b8-9805-4058-a451-ce07a637b441",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "ItemRunStatus",
+                "values": [
+                  "Succeeded"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "completed",
+            "ruleName": "",
+            "visualType": "table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "65710245-7331-4c8f-8906-0a85f567b156",
+      "title": "New tile",
+      "visualType": "table",
+      "pageId": "b09d6e29-611a-448d-be3a-e8309f749b46",
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 24,
+        "height": 13
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "67dc586b-f62b-4460-8855-b38fe5998d84"
+      },
+      "hideTitle": true,
+      "visualOptions": {
+        "table__enableRenderLinks": true,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": true,
+        "crossFilter": [
+          {
+            "interaction": "column",
+            "property": "PipelineRunID",
+            "parameterId": "0ac4db37-5640-4996-ba73-611b5b684234",
+            "disabled": false
+          }
+        ],
+        "drillthrough": [
+          {
+            "pairs": [
+              {
+                "parameterId": "0ac4db37-5640-4996-ba73-611b5b684234",
+                "property": "PipelineRunID"
+              }
+            ],
+            "destinationPages": [
+              "d33eee70-d275-4d2b-9ad9-42a181bd45a6"
+            ],
+            "disabled": false
+          }
+        ],
+        "table__renderLinks": [],
+        "colorRules": [
+          {
+            "id": "e2b12308-ef3f-4cc6-80e9-faaa11c561db",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "ItemRunStatus",
+                "values": [
+                  "In Progress"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "blue",
+            "tag": "",
+            "icon": "repair",
+            "ruleName": "",
+            "visualType": "table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "60023003-ad2c-4304-b315-d2f0e2d311e1",
+      "title": "",
+      "visualType": "line",
+      "pageId": "3d277105-e5cf-4d79-bb6e-db47fed86f8a",
+      "layout": {
+        "x": 0,
+        "y": 24,
+        "width": 24,
+        "height": 10
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "a6216e17-36f3-4db3-8436-dc99f178a9ed"
+      },
+      "hideTitle": true,
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "Count of Pipeline Run by Status",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xColumnTitle": "Date",
+        "xColumn": "Day",
+        "yColumns": null,
+        "seriesColumns": null,
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": true,
+        "drillthroughDisabled": true,
+        "crossFilter": [],
+        "drillthrough": [],
+        "selectedDataOnLoad": {
+          "all": true,
+          "limit": 3
+        },
+        "dataPointsTooltip": {
+          "all": false,
+          "limit": 1
+        }
+      }
+    },
+    {
+      "id": "990885f8-4652-4ae6-b1e3-ed64020ca6a6",
+      "title": "New tile",
+      "hideTitle": true,
+      "visualType": "line",
+      "pageId": "3d277105-e5cf-4d79-bb6e-db47fed86f8a",
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 24,
+        "height": 12
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "05bf27c4-a31f-445b-b6ba-18ef592b59b3"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "Insert Count by Data Entity Name",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xColumnTitle": "Date",
+        "xColumn": "Day",
+        "yColumns": [
+          "Total_Insert_Count"
+        ],
+        "seriesColumns": [
+          "DataEntityName"
+        ],
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [],
+        "dataPointsTooltip": {
+          "all": false,
+          "limit": 1
+        }
+      }
+    },
+    {
+      "id": "bd8bb27d-1518-4cce-8f72-eb7a6f2e5e36",
+      "title": "New tile",
+      "hideTitle": true,
+      "visualType": "column",
+      "pageId": "3d277105-e5cf-4d79-bb6e-db47fed86f8a",
+      "layout": {
+        "x": 8,
+        "y": 2,
+        "width": 16,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "4caaa804-f5ce-4f28-8f70-8bef38ca89a1"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "Total Insert Count",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "hideLegend": true,
+        "legendLocation": "bottom",
+        "xColumnTitle": "Date",
+        "xColumn": "Day",
+        "yColumns": null,
+        "seriesColumns": null,
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "a47c4b77-bd20-4286-bd42-c0790701f1cf",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "3d277105-e5cf-4d79-bb6e-db47fed86f8a",
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 16,
+        "height": 2
+      },
+      "markdownText": "## Total Insert Count By Day Over Rolling 7 days ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "4a8775cc-774f-430c-b3e0-0f4fd1630b36",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "3d277105-e5cf-4d79-bb6e-db47fed86f8a",
+      "layout": {
+        "x": 0,
+        "y": 8,
+        "width": 24,
+        "height": 2
+      },
+      "markdownText": "## Total Insert Count by Data Entity Name Over Current Week ##",
+      "visualOptions": {}
+    },
+    {
+      "id": "a005647d-0d3b-4dac-a0be-73ca157744fd",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "b09d6e29-611a-448d-be3a-e8309f749b46",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 3
+      },
+      "markdownText": "## Current In Progress ##",
+      "visualOptions": {}
+    },
+    {
+      "id": "746a8e1c-59d5-4bfd-a246-4093a49593e8",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "24081b98-0c36-4635-a722-26128b00ddb2",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 3
+      },
+      "markdownText": "## Jobs Completed by Status ##\n*Note - *Drillthrough is available to PipelineRundID for specifics, please right click a PipelineRundID and drill through as needed.  Filter for Jobs that are Succeeded or Completed*",
+      "visualOptions": {}
+    },
+    {
+      "id": "5350ceff-0a38-4bfa-8371-1359de97d294",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "3d277105-e5cf-4d79-bb6e-db47fed86f8a",
+      "layout": {
+        "x": 0,
+        "y": 22,
+        "width": 24,
+        "height": 2
+      },
+      "markdownText": "## Currently Week Trend of Jobs Completed by Status ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "85ae8aef-d596-4be3-ae63-4abd37e80d44",
+      "title": "",
+      "visualType": "table",
+      "pageId": "5912a261-732b-4e59-a032-814970154226",
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 24,
+        "height": 8
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "283a8942-09aa-4280-8ede-88d2dccf86b2"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": true,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [],
+        "table__renderLinks": [],
+        "colorRules": [
+          {
+            "id": "0e781c80-23fa-4821-9e0c-8728cc5cd22d",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "ItemRunStatus",
+                "values": [
+                  "In Progress"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "blue",
+            "tag": "",
+            "icon": "repair",
+            "ruleName": "",
+            "visualType": "table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "496bfd1e-10d1-4862-aee7-5c52b87516d5",
+      "title": "New tile",
+      "hideTitle": true,
+      "visualType": "table",
+      "pageId": "5912a261-732b-4e59-a032-814970154226",
+      "layout": {
+        "x": 0,
+        "y": 13,
+        "width": 24,
+        "height": 13
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "21f25c99-4252-4f5d-b79b-fc0279b44e41"
+      },
+      "visualOptions": {
+        "table__enableRenderLinks": true,
+        "colorRulesDisabled": false,
+        "colorStyle": "light",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [],
+        "table__renderLinks": [],
+        "colorRules": [
+          {
+            "id": "caf31fd4-6947-489d-a8d1-5feb5a34cbc3",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "ItemRunStatus",
+                "values": [
+                  "Failed"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "red",
+            "tag": "",
+            "icon": "warning",
+            "ruleName": "",
+            "visualType": "table"
+          },
+          {
+            "id": "d31899ac-a843-4855-8a6d-ab86e2d45843",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "ItemRunStatus",
+                "values": [
+                  "Succeeded"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": "completed",
+            "ruleName": "",
+            "visualType": "table"
+          }
+        ]
+      }
+    },
+    {
+      "id": "10a429b7-1a98-483b-b7dd-ccd4ad400464",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "5912a261-732b-4e59-a032-814970154226",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 2
+      },
+      "markdownText": "## Current Parent Jobs In Progress ##\n",
+      "visualOptions": {}
+    },
+    {
+      "id": "baefa027-bd1d-4f38-9403-8f602e7e4ab7",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "5912a261-732b-4e59-a032-814970154226",
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 24,
+        "height": 3
+      },
+      "markdownText": "## Parent Jobs Completed by Status ##\n*Note - *Drillthrough is available to PipelineRundID for specifics, please right click a PipelineRundID and drill through as needed.  Filter for Jobs that are Succeeded or Completed*",
+      "visualOptions": {}
+    }
+  ],
+  "baseQueries": [],
+  "parameters": [
+    {
+      "kind": "duration",
+      "id": "b305a097-bf0f-4b97-beb4-7d6852818a6e",
+      "displayName": "Time range",
+      "description": "",
+      "beginVariableName": "_startTime",
+      "endVariableName": "_endTime",
+      "defaultValue": {
+        "kind": "dynamic",
+        "count": 1,
+        "unit": "hours"
+      },
+      "showOnPages": {
+        "kind": "selection",
+        "pageIds": []
+      }
+    },
+    {
+      "kind": "string",
+      "id": "0ac4db37-5640-4996-ba73-611b5b684234",
+      "displayName": "PipelineRunID",
+      "description": "",
+      "variableName": "PipelineRunID",
+      "selectionType": "scalar",
+      "includeAllOption": false,
+      "defaultValue": {
+        "kind": "value",
+        "value": "14fcc1c4-8c3f-4a78-aa4f-3c83c51507a1"
+      },
+      "dataSource": {
+        "kind": "query",
+        "columns": {
+          "value": "ItemRunID"
+        },
+        "queryRef": {
+          "kind": "query",
+          "queryId": "6693c0cf-2b39-4b37-b2f5-92bbcd46b5e2"
+        }
+      },
+      "showOnPages": {
+        "kind": "selection",
+        "pageIds": [
+          "d33eee70-d275-4d2b-9ad9-42a181bd45a6"
+        ]
+      }
+    },
+    {
+      "kind": "string",
+      "id": "0f88440c-2a83-4707-b362-ba71fb2689ca",
+      "displayName": "ActivityRunID",
+      "description": "",
+      "variableName": "ActivityRunID",
+      "selectionType": "scalar",
+      "includeAllOption": false,
+      "defaultValue": {
+        "kind": "value",
+        "value": "e346174b-9408-4b49-bc4c-002d58f987a5"
+      },
+      "dataSource": {
+        "kind": "query",
+        "columns": {
+          "value": "DataEntityActivityRunID"
+        },
+        "queryRef": {
+          "kind": "query",
+          "queryId": "07e823a8-f6fd-433d-9ef6-5e2cf986b376"
+        }
+      },
+      "showOnPages": {
+        "kind": "selection",
+        "pageIds": [
+          "0ca9a934-799d-4cfb-8627-67f931df7cfd"
+        ]
+      }
+    },
+    {
+      "kind": "string",
+      "id": "975e0b38-24a9-4013-8d52-f1f369579865",
+      "displayName": "PipelineRunStatus",
+      "description": "",
+      "variableName": "PipelineRunStatus",
+      "selectionType": "scalar",
+      "includeAllOption": false,
+      "defaultValue": {
+        "kind": "value",
+        "value": "Failed"
+      },
+      "dataSource": {
+        "kind": "query",
+        "columns": {
+          "value": "ItemRunStatus",
+          "label": "ItemRunStatus"
+        },
+        "queryRef": {
+          "kind": "query",
+          "queryId": "693920fc-9077-411a-974c-57668f8a7f03"
+        }
+      },
+      "showOnPages": {
+        "kind": "selection",
+        "pageIds": [
+          "24081b98-0c36-4635-a722-26128b00ddb2",
+          "5912a261-732b-4e59-a032-814970154226"
+        ]
+      }
+    }
+  ],
+  "dataSources": [
+    {
+      "kind": "kusto-trident",
+      "scopeId": "kusto-trident",
+      "clusterUri": "",
+      "database": "616e9892-61c6-8304-42a2-bbae1368edf2",
+      "name": "eh_audit_log_monitor",
+      "id": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9",
+      "workspace": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "pages": [
+    {
+      "name": "ETL_Overview",
+      "id": "a49ac48a-0a17-49cc-87bb-294cf9666609"
+    },
+    {
+      "name": "Job_Details_Overview",
+      "id": "6c3cab04-fc5e-4a58-9345-d91b5c30e49e"
+    },
+    {
+      "name": "Parent Pipeline Overview",
+      "id": "5912a261-732b-4e59-a032-814970154226"
+    },
+    {
+      "name": "Job_Details_InProgress",
+      "id": "b09d6e29-611a-448d-be3a-e8309f749b46"
+    },
+    {
+      "name": "Job_Details_Completed",
+      "id": "24081b98-0c36-4635-a722-26128b00ddb2"
+    },
+    {
+      "name": "Weekly Snapshot",
+      "id": "3d277105-e5cf-4d79-bb6e-db47fed86f8a"
+    },
+    {
+      "name": "Job Execution Activity Overview",
+      "id": "d33eee70-d275-4d2b-9ad9-42a181bd45a6"
+    },
+    {
+      "name": "Activity Exectuion Overview",
+      "id": "0ca9a934-799d-4cfb-8627-67f931df7cfd"
+    }
+  ],
+  "queries": [
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "let Failed =    \nItem_Execution_Completed_Refined\n    | where ItemRunStatus == \"Failed\"\n    | project ItemID, ItemRunID, ItemWorkspaceName, Failed_status = ItemRunStatus, Failed_time = EventDateTime;\nlet Succeeded =\nItem_Execution_Completed_Refined\n    | where ItemRunStatus == \"Succeeded\"\n    | project ItemID, ItemRunID, ItemWorkspaceName, Success_status = ItemRunStatus, Success_time = EventDateTime;\nItem_Execution_InProgress_Refined\n    | join kind=leftouter (Succeeded) on ItemID and ItemRunID\n    | join kind=leftouter (Failed) on ItemID and ItemRunID\n    | extend ESTTime = EventDateTime - 4h\n    | where ItemRunStatus == \"In Progress\" and Failed_status == '' and Success_status == '' and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | project  ItemWorkspaceName, PipelineName = ItemName, PipelineRunID = ItemRunID, start_status = ItemRunStatus, start_time = ESTTime\n    | order by start_time desc ",
+      "id": "bce9a2d4-ae79-4d71-8a1a-d59eea3ce6ab",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "let InProgress =\nItem_Execution_InProgress_Refined\n| extend ESTTime = EventDateTime - 4h\n| project ItemID, ItemRunID, ItemWorkspaceName, StartStatus = ItemRunStatus, Start_time = ESTTime;\nItem_Execution_Completed_Refined\n| join kind=inner InProgress on ItemID and ItemRunID\n| extend ESTTime = EventDateTime - 4h\n| where ItemRunStatus  == \"Succeeded\" and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n| extend Duration_mins = datetime_diff('minute', ESTTime, Start_time)\n| extend Last_Run_Duration = datetime_diff('minute', ESTTime - 1d, Start_time - 1d)\n| project ItemWorkspaceName, PipelineName = ItemName, PipelineRunID = ItemRunID, Start_time, Success_status = ItemRunStatus, Success_time = ESTTime, Duration_mins, Last_Run_Duration\n| order by Start_time desc ",
+      "id": "f45f4b6c-59d3-41e7-be62-cca96054b26e",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "let Failed =    \nItem_Execution_Completed_Refined\n    | where ItemRunStatus == \"Failed\"\n    | project ItemID, ItemRunID, ItemWorkspaceName, Failed_status = ItemRunStatus, Failed_time = EventDateTime;\nlet Succeeded =\nItem_Execution_Completed_Refined\n    | where ItemRunStatus == \"Succeeded\"\n    | project ItemID, ItemRunID, ItemWorkspaceName, Success_status = ItemRunStatus, Success_time = EventDateTime;\nItem_Execution_InProgress_Refined\n    | join kind=leftouter (Succeeded) on ItemID and ItemRunID\n    | join kind=leftouter (Failed) on ItemID and ItemRunID\n    | where ItemRunStatus == \"In Progress\" and Failed_status == '' and Success_status == '' and EventDateTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | count",
+      "id": "4578bb60-ab1c-4759-bafd-32c3e398fd23",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n    | extend  ESTTime = EventDateTime - 4h\n    | where ItemRunStatus == \"Failed\" and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | count\n",
+      "id": "e1da185c-fb85-4773-90a9-29392e57a009",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n    | extend  ESTTime = EventDateTime - 4h\n    | where ItemRunStatus == \"Succeeded\" and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | count",
+      "id": "1d64a5b1-6b12-4b93-a36b-938b9af0e909",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Data_Entity_Refined\n| extend StartESTTime = DataEntityStartDateTime - 4h\n| where StartESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n| project InsertCount\n| summarize Total_Insert_Count = sum(InsertCount)\n\n",
+      "id": "042958b6-adc8-4d07-8b2d-68bcc875a3c3",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n    | extend  ESTTime = EventDateTime - 4h\n    | where ItemRunStatus == \"Succeeded\" and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | count",
+      "id": "c764b9ff-4819-4960-9d33-47389d9ede80",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n    | extend  ESTTime = EventDateTime - 4h\n    | where ItemRunStatus == \"Failed\" and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | count\n",
+      "id": "73e63e39-e7f9-49ab-97d5-3627e462cd9b",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n| join kind=leftouter (ItemDataEntity) on ItemRunID\n| extend StartESTTime = DataEntityStartDateTime - 4h\n| extend EndESTTime = DataEntityEndDateTime - 4h\n| extend duration_mins = datetime_diff('minute', EndESTTime, StartESTTime)\n| distinct PipeLineRunID = ItemRunID, ActivityName = DataEntityActivityName, Status = DataEntityExecutionStatus, ActivityRunID = DataEntityActivityRunID, StartTime = StartESTTime, EndTime = EndESTTime, Duration_Mins = duration_mins, EntityName = DataEntityName, InsertCount, RowsCopied\n| where PipeLineRunID == PipelineRunID\n| order by EndTime desc;",
+      "id": "a924c01a-8d57-46d4-a158-4fa99cc925b8",
+      "usedVariables": [
+        "PipelineRunID"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "let InProgress =\nItem_Execution_InProgress_Refined\n| extend ESTTime = EventDateTime - 4h\n| project ItemID, ItemRunID, ItemWorkspaceName, StartStatus = ItemRunStatus, Start_time = ESTTime;\nItem_Execution_Completed_Refined\n| join kind=inner InProgress on ItemID and ItemRunID\n| extend ESTTime = EventDateTime - 4h\n| where ItemRunStatus  == \"Failed\" and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n| extend Duration_mins = datetime_diff('minute', ESTTime, Start_time)\n| extend Last_Run_Duration = datetime_diff('minute', ESTTime - 1d, Start_time - 1d)\n| project ItemWorkspaceName, PipelineName = ItemName, PipelineRunID = ItemRunID, Start_time, Failed_status = ItemRunStatus, Failed_time = ESTTime, Duration_mins, Last_Run_Duration\n| order by Start_time desc ",
+      "id": "ab4c1f1f-b81d-4372-81b7-af3ae140cdc4",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n| project ItemName, ItemRunID\n| where ItemRunID == PipelineRunID\n",
+      "id": "e1c5937a-0189-46c8-b3e8-cc5affa44d1c",
+      "usedVariables": [
+        "PipelineRunID"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Data_Entity_Refined\n| extend StartESTTime = DataEntityStartDateTime - 4h\n| extend EndESTTime = DataEntityEndDateTime - 4h\n| where StartESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York')) and ItemRunID == PipelineRunID\n| project InsertCount\n| summarize Total_Insert_Count = sum(InsertCount)",
+      "id": "93d1815e-d006-413f-b32d-bf0fafcb05a5",
+      "usedVariables": [
+        "PipelineRunID"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n| project ItemWorkspaceName, ItemRunID\n| where ItemRunID  == PipelineRunID\n",
+      "id": "a98941c0-db23-4a63-b0eb-d128aee88a7e",
+      "usedVariables": [
+        "PipelineRunID"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "let Failed =    \nItem_Execution_Completed_Refined\n    | project ItemID, ItemRunID, ItemWorkspaceName, Completed_status = ItemRunStatus, Completed_time = EventDateTime;\nItem_Execution_InProgress_Refined\n    | join kind=leftouter (Failed) on ItemID and ItemRunID\n    | extend ESTTime = EventDateTime - 4h\n    | where ItemRunStatus == \"In Progress\" and Completed_status == '' and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | count ",
+      "id": "07e067bd-69bb-4012-b8e7-d6a8b7978399",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n    | extend  ESTTime = EventDateTime - 4h\n    | where ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | count",
+      "id": "a49cb4e6-d988-40e6-9f44-02f4e4d90a16",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "let End =    \nItem_Execution_Completed_Refined\n    | extend ESTTime = EventDateTime - 4h\n    | project ItemID, ItemRunID, ItemWorkspaceName, PipelineName = ItemName, PipelineRunID = ItemRunID, End_Time = ESTTime, End_Status = ItemRunStatus;\nItem_Execution_InProgress_Refined\n    | join kind=inner (End) on ItemID and ItemRunID\n    | extend ESTTime = EventDateTime - 4h\n    | where ItemRunStatus == \"In Progress\" and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | extend Duration_Mins = datetime_diff('minute', End_Time, ESTTime)\n    | extend Last_Run_Duration = datetime_diff('minute', End_Time - 1d, ESTTime - 1d)\n    | project ItemWorkspaceName, PipelineName = ItemName, PipelineRunID = ItemRunID, Start_Status = ItemRunStatus, start_time = ESTTime, End_Status, End_Time, Duration_Mins, Last_Run_Duration\n    | order by Duration_Mins desc  \n    | top 10 by Duration_Mins\n    ",
+      "id": "f2a4ad38-a836-4713-8e65-dd465a425082",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Data_Entity_Refined\n| extend StartESTTime = DataEntityStartDateTime - 4h\n| extend EndESTTime = DataEntityEndDateTime - 4h\n| project ActivityName = DataEntityActivityName, DataEntityActivityRunID, EntityName = DataEntityName, StartESTTime, EndESTTime, InsertCount, RowsCopied, RowsRead\n| where InsertCount != '' and EndESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n| order by InsertCount desc\n| top 10 by InsertCount",
+      "id": "08dca67a-be22-406a-9e3f-8d54914ad10e",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n| extend PipelineIdMessage = \"Please drill through ActivityRunID on failed activity for more information\"\n| extend ErrorMessage = case(\n    ExecutionErrorMessage == '', \"No Errors Found\", PipelineIdMessage\n)\n| project ErrorMessage, ExecutionErrorMessage, ItemRunID\n| where ItemRunID == PipelineRunID\n",
+      "id": "37ba4432-81e1-4798-8280-7f8075172600",
+      "usedVariables": [
+        "PipelineRunID"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Data_Entity_Refined\n| project DataEntityActivityName, DataEntityActivityRunID\n| where DataEntityActivityRunID == ActivityRunID\n",
+      "id": "640978d8-6a69-4a4b-a55c-1bc052ab9117",
+      "usedVariables": [
+        "ActivityRunID"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Data_Entity_Refined\n| extend StartESTTime = DataEntityStartDateTime - 4h\n| extend TotalCount = iff(isnull(InsertCount) or InsertCount == 0, 0, InsertCount)\n| where DataEntityActivityRunID == ActivityRunID\n| project InsertCount = TotalCount\n",
+      "id": "e8555f58-0c6d-4ef8-a4f3-22fcd611d87b",
+      "usedVariables": [
+        "ActivityRunID"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Data_Entity_Refined\n| project DataEntityWorkspaceName, DataEntityActivityRunID\n| where DataEntityActivityRunID  == ActivityRunID\n",
+      "id": "019ccecb-28cf-4bb7-b5e9-1655802f7f86",
+      "usedVariables": [
+        "ActivityRunID"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Data_Entity_Refined\n| extend ErrorMessage = case(\n    ExecutionErrorMessage == '', \"No Errors Found\", ExecutionErrorMessage\n)\n| project ErrorMessage, DataEntityActivityRunID\n| where DataEntityActivityRunID == ActivityRunID\n",
+      "id": "be687f52-7f96-4c65-b9e2-822a33c062b5",
+      "usedVariables": [
+        "ActivityRunID"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "let In_Progress =\nItem_Execution_InProgress_Refined\n    | extend ESTTime = EventDateTime - 4h\n    | project ItemWorkspaceName, PipelineName = ItemName, ItemID, ItemRunID, ItemRunStatus, Start_Time = ESTTime;\nItem_Execution_Completed_Refined\n    | join kind=inner (In_Progress) on ItemID and ItemRunID\n    | extend ESTTime = EventDateTime - 4h\n    | extend Duration_Mins = datetime_diff('minute', ESTTime, Start_Time)\n    | extend Last_Run_Duration = datetime_diff('minute', ESTTime - 1d, Start_Time - 1d)\n    | project ItemWorkspaceName, PipelineName = ItemName, ItemRunID, ItemRunStatus, EventDateTime = ESTTime, Duration_Mins, Last_Run_Duration\n    | where EventDateTime >= startofday(datetime_utc_to_local(now(), 'America/New_York')) and ItemRunStatus in~ (PipelineRunStatus) \n    | order by EventDateTime desc ",
+      "id": "5ae22bff-b793-4d16-94ea-1a591960905c",
+      "usedVariables": [
+        "PipelineRunStatus"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "let Failed =    \nItem_Execution_Completed_Refined\n    | where ItemRunStatus == \"Failed\"\n    | project ItemID, ItemRunID, ItemWorkspaceName, Failed_status = ItemRunStatus, Failed_time = EventDateTime;\nlet Succeeded =\nItem_Execution_Completed_Refined\n    | where ItemRunStatus == \"Succeeded\"\n    | project ItemID, ItemRunID, ItemWorkspaceName, Success_status = ItemRunStatus, Success_time = EventDateTime;\nItem_Execution_InProgress_Refined\n    | join kind=leftouter (Succeeded) on ItemID and ItemRunID\n    | join kind=leftouter (Failed) on ItemID and ItemRunID\n    | extend ESTTime = EventDateTime - 4h\n    | where ItemRunStatus == \"In Progress\" and Failed_status == '' and Success_status == '' and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | project  ItemWorkspaceName, PipelineName = ItemName, PipelineRunID = ItemRunID, EventDateTime = ESTTime, ItemRunStatus\n    | order by EventDateTime desc \n",
+      "id": "67dc586b-f62b-4460-8855-b38fe5998d84",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n    | extend Day = format_datetime(EventDateTime, 'yyyy-MM-dd')\n    | project ItemRunStatus, EventDateTime, Day\n\t| where EventDateTime >= ago(7d)\n    | summarize countItemRunStatus = count() by ItemRunStatus, Day\n    | order  by Day asc \n\n",
+      "id": "a6216e17-36f3-4db3-8436-dc99f178a9ed",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Data_Entity_Refined\n| extend Day = format_datetime(DataEntityStartDateTime, 'yyyy-MM-dd')\n| project DataEntityStartDateTime, InsertCount, DataEntityName, Day\n| where InsertCount != '' and DataEntityStartDateTime >= ago(7d)\n| summarize Total_Insert_Count = sum(InsertCount) by Day, DataEntityName\n| order by Day asc\n\n",
+      "id": "05bf27c4-a31f-445b-b6ba-18ef592b59b3",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Data_Entity_Refined \n| extend Day = format_datetime(DataEntityStartDateTime, 'yyyy-MM-dd')\n| project DataEntityStartDateTime, InsertCount, Day\n| where InsertCount != '' and DataEntityStartDateTime >= ago(7d)\n| summarize Total_Insert_Count = sum(InsertCount) by Day\n| order by Day asc;\n\n",
+      "id": "4caaa804-f5ce-4f28-8f70-8bef38ca89a1",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "let Failed =    \nItem_Execution_Completed_Refined\n    | where ItemRunStatus == \"Failed\"\n    | project ItemID, ItemRunID, ItemWorkspaceName, Failed_status = ItemRunStatus, Failed_time = EventDateTime;\nlet Succeeded =\nItem_Execution_Completed_Refined\n    | where ItemRunStatus == \"Succeeded\"\n    | project ItemID, ItemRunID, ItemWorkspaceName, Success_status = ItemRunStatus, Success_time = EventDateTime;\nItem_Execution_InProgress_Refined\n    | join kind=leftouter (Succeeded) on ItemID and ItemRunID\n    | join kind=leftouter (Failed) on ItemID and ItemRunID\n    | extend ESTTime = EventDateTime - 4h\n    | where ItemRunStatus == \"In Progress\" and Failed_status == '' and Success_status == '' and ParentItemID == '' and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | project  ItemWorkspaceName, PipelineName = ItemName, PipelineRunID = ItemRunID, ItemRunStatus, EventDateTime = ESTTime\n    | order by EventDateTime desc \n",
+      "id": "283a8942-09aa-4280-8ede-88d2dccf86b2",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "let Child = \n    Item_Execution_Completed_Refined\n    | extend ESTTime = EventDateTime - 4h\n    | where ParentItemID != '' and ItemRunStatus in~ (PipelineRunStatus) and EventDateTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | project ItemWorkspaceName, ItemID, Child_Pipeline = ItemName, ItemRunID, End_Status = ItemRunStatus, End_Time = ESTTime, ParentItemID, ParentItemName\n    | order by End_Time desc;\nlet End =    \nItem_Execution_Completed_Refined\n    | extend ESTTime = EventDateTime - 4h\n    | where ParentItemID == '' and ItemRunStatus in~ (PipelineRunStatus) and EventDateTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | project ItemWorkspaceName, ItemID, PipelineName = ItemName, ItemRunID, End_Status = ItemRunStatus, End_Time = ESTTime\n    | order by End_Time desc;\nItem_Execution_InProgress_Refined\n    | join kind=inner (End) on ItemID and ItemRunID\n    | join kind=inner (Child) on $left.ItemName == $right.ParentItemName\n    | extend ESTTime = EventDateTime - 4h\n    | where ParentItemID == '' and ItemRunStatus == \"In Progress\" and ESTTime >= startofday(datetime_utc_to_local(now(), 'America/New_York'))\n    | extend Duration_Mins = datetime_diff('minute', End_Time, ESTTime)\n    | extend Last_Run_Duration = datetime_diff('minute', End_Time - 1d, ESTTime - 1d)\n    | project ItemWorkspaceName, PipelineName = ItemName, PipelineRunID = ItemRunID, ItemRunStatus = End_Status, ChildPipelineName = Child_Pipeline, EventDateTime = End_Time, Duration_Mins, Last_Run_Duration \n    | order by EventDateTime desc  \n\n    ",
+      "id": "21f25c99-4252-4f5d-b79b-fc0279b44e41",
+      "usedVariables": [
+        "PipelineRunStatus"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "ItemDataEntity\n| distinct ItemRunID\n",
+      "id": "6693c0cf-2b39-4b37-b2f5-92bbcd46b5e2",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "ItemDataEntity\n| distinct DataEntityActivityRunID",
+      "id": "07e823a8-f6fd-433d-9ef6-5e2cf986b376",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "d98b1dec-7831-47fa-9a2e-5f88f2b7d8e9"
+      },
+      "text": "Item_Execution_Completed_Refined\n| distinct ItemRunStatus",
+      "id": "693920fc-9077-411a-974c-57668f8a7f03",
+      "usedVariables": []
+    }
+  ]
+}

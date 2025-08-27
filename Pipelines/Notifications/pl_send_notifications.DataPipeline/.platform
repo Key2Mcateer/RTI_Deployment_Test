@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pl_send_notifications"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "24736895-d243-8744-4739-ebf43a764bf9"
+  }
+}

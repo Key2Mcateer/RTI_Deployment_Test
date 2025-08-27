@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_AE_Secure_Endpoint_Failed"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c8a76cbe-8040-b550-4832-6c4210f3ed86"
+  }
+}

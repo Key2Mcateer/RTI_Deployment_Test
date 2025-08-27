@@ -1,0 +1,156 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Web Get AKV Client ID",
+        "type": "WebActivity",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "method": "GET",
+          "headers": {},
+          "relativeUrl": "/rti-client-id/b70776af68f14b3391c2c6844c1ac9d4?api-version=7.0"
+        },
+        "externalReferences": {
+          "connection": "3b490f00-3fa0-4aca-bb27-4be752009bce"
+        }
+      },
+      {
+        "name": "Web Get AKV Client Secret",
+        "type": "WebActivity",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "method": "GET",
+          "headers": {},
+          "turnOffAsync": false,
+          "relativeUrl": "/rti-client-secret/86bb50776c5449efac921ae32fb04d50/?api-version=7.0"
+        },
+        "externalReferences": {
+          "connection": "3b490f00-3fa0-4aca-bb27-4be752009bce"
+        }
+      },
+      {
+        "name": "Web Get Eventhub Token",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "Web Get AKV Client ID",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Web Get AKV Client Secret",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": true,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "body": {
+            "value": "@concat('grant_type=client_credentials',\n'&resource=https://api.fabric.microsoft.com',\n'&client_id=',\nactivity('Web Get AKV Client ID').output.value,\n'&client_secret=',\nactivity('Web Get AKV Client Secret').output.value\n)",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "4ea14766-984f-4459-8d7e-18eee3924a14"
+        }
+      },
+      {
+        "name": "Web Call Fabric API",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "Web Get Eventhub Token",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": true
+        },
+        "typeProperties": {
+          "method": "GET",
+          "headers": {
+            "Authorization": {
+              "value": "@concat('Bearer ',\nactivity('Web Get Eventhub Token').output.access_token   \n)",
+              "type": "Expression"
+            },
+            "Content-Type": "application/atom+xml;type=entry;charset=utf-8"
+          },
+          "relativeUrl": {
+            "value": "@pipeline().parameters.p_workspacename_relative_api_url",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "709afbcb-0524-40c2-b20d-ce0188b78d99"
+        }
+      },
+      {
+        "name": "Set Workspace Name",
+        "type": "SetVariable",
+        "dependsOn": [
+          {
+            "activity": "Web Call Fabric API",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "variableName": "pipelineReturnValue",
+          "value": [
+            {
+              "key": "api_output",
+              "value": {
+                "type": "Expression",
+                "content": "@activity('Web Call Fabric API').output"
+              }
+            }
+          ],
+          "setSystemVariable": true
+        }
+      }
+    ],
+    "concurrency": 1,
+    "parameters": {
+      "p_workspacename_relative_api_url": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_AR_Secure_Endpoint"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "049e5a39-cdd0-9c1d-44f4-70cfdc9a92af"
+  }
+}

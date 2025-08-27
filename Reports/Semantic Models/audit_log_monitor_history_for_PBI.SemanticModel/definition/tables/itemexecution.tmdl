@@ -1,0 +1,336 @@
+table itemexecution
+	lineageTag: 8dbc1bc6-5dc1-42d2-a97e-4dc3c6cfe802
+	sourceLineageTag: [Refined].[itemexecution]
+
+	column ItemExecutionKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 7fffd126-bd38-4f6b-989d-d3151627a3a8
+		sourceLineageTag: ItemExecutionKey
+		summarizeBy: none
+		sourceColumn: ItemExecutionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemWorkspaceID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 6a2ea168-b1ea-4293-97f2-831f12a498e3
+		sourceLineageTag: ItemWorkspaceID
+		summarizeBy: none
+		sourceColumn: ItemWorkspaceID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemWorkspaceName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 3560d25d-ae06-44e9-9ec9-3099cb6cd827
+		sourceLineageTag: ItemWorkspaceName
+		summarizeBy: none
+		sourceColumn: ItemWorkspaceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 32d3ba85-a2d1-40f5-ba99-c68973842c57
+		sourceLineageTag: ItemID
+		summarizeBy: none
+		sourceColumn: ItemID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 610b5cfa-9c6f-4f56-a2fa-e5070ae98802
+		sourceLineageTag: ItemName
+		summarizeBy: none
+		sourceColumn: ItemName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemType
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: bf33471b-b478-413e-a7ca-ff75d72678b7
+		sourceLineageTag: ItemType
+		summarizeBy: none
+		sourceColumn: ItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemGroupID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 0c94d7a9-5c81-45e1-bd36-4e2caa4ac18b
+		sourceLineageTag: ItemGroupID
+		summarizeBy: none
+		sourceColumn: ItemGroupID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemRunID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: db7e3060-850a-4b29-82e5-820a121507a7
+		sourceLineageTag: ItemRunID
+		summarizeBy: none
+		sourceColumn: ItemRunID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemRunStatus
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: a4f0fd5b-878e-443a-bb62-37221620cbab
+		sourceLineageTag: ItemRunStatus
+		summarizeBy: none
+		sourceColumn: ItemRunStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemFolderPath
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7dd6216f-ee96-4b94-8686-d6ea7aa32548
+		sourceLineageTag: ItemFolderPath
+		summarizeBy: none
+		sourceColumn: ItemFolderPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentItemID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: c2649fef-24b1-49c7-a964-ffbc2f4d9cb4
+		sourceLineageTag: ParentItemID
+		summarizeBy: none
+		sourceColumn: ParentItemID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentItemName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 6a63591f-267e-4ec6-95a2-7a4e094f0d77
+		sourceLineageTag: ParentItemName
+		summarizeBy: none
+		sourceColumn: ParentItemName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentItemRunID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: bd35d802-fd4d-4e05-a01f-565414f16e96
+		sourceLineageTag: ParentItemRunID
+		summarizeBy: none
+		sourceColumn: ParentItemRunID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemRunStartDateTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 65fdc9f8-faf2-446a-95e6-4e86d83860e1
+		sourceLineageTag: ItemRunStartDateTime
+		summarizeBy: none
+		sourceColumn: ItemRunStartDateTime
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemRunEndDateTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: f4d14f02-2b94-4659-8f2d-fa438e71dc50
+		sourceLineageTag: ItemRunEndDateTime
+		summarizeBy: none
+		sourceColumn: ItemRunEndDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column TriggerID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 8e1b3e56-16da-46f7-9d81-4ca5f28dbdb8
+		sourceLineageTag: TriggerID
+		summarizeBy: none
+		sourceColumn: TriggerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column TriggerName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 6d60ccee-1bac-4fc3-b9ef-104483c80708
+		sourceLineageTag: TriggerName
+		summarizeBy: none
+		sourceColumn: TriggerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column TriggerType
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 72a0b998-8e80-4ce4-8189-79dcca604c38
+		sourceLineageTag: TriggerType
+		summarizeBy: none
+		sourceColumn: TriggerType
+
+		annotation SummarizationSetBy = Automatic
+
+	column TriggerDateTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 1aa0794d-a79e-4a1c-a55a-f26da6efa2b5
+		sourceLineageTag: TriggerDateTime
+		summarizeBy: none
+		sourceColumn: TriggerDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column TriggerEventSource
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 13955933-64e3-423c-a36e-3cc2502c0820
+		sourceLineageTag: TriggerEventSource
+		summarizeBy: none
+		sourceColumn: TriggerEventSource
+
+		annotation SummarizationSetBy = Automatic
+
+	column TriggerEventSubject
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 3a74d2f7-9825-456f-8ea1-f9e969d111ae
+		sourceLineageTag: TriggerEventSubject
+		summarizeBy: none
+		sourceColumn: TriggerEventSubject
+
+		annotation SummarizationSetBy = Automatic
+
+	column TriggerFileName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 47bcf2d7-c177-4c09-aa28-6efd4689ee64
+		sourceLineageTag: TriggerFileName
+		summarizeBy: none
+		sourceColumn: TriggerFileName
+
+		annotation SummarizationSetBy = Automatic
+
+	column TriggerFolderPath
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 89c7345e-1d7a-40e0-a1af-04b74f5a29f4
+		sourceLineageTag: TriggerFolderPath
+		summarizeBy: none
+		sourceColumn: TriggerFolderPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column AlertToTeamsGroupID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: f83aac7f-9276-4c5e-8a4a-7163882afa78
+		sourceLineageTag: AlertToTeamsGroupID
+		summarizeBy: none
+		sourceColumn: AlertToTeamsGroupID
+
+		annotation SummarizationSetBy = Automatic
+
+	column AlertToTeamsChannelID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: c81f5223-b0b6-47c1-a601-7fa4520f8cae
+		sourceLineageTag: AlertToTeamsChannelID
+		summarizeBy: none
+		sourceColumn: AlertToTeamsChannelID
+
+		annotation SummarizationSetBy = Automatic
+
+	column AlertToEmail
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7078f1ce-f129-40e8-ad5b-32d272018a1b
+		sourceLineageTag: AlertToEmail
+		summarizeBy: none
+		sourceColumn: AlertToEmail
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedBy
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 26712ed6-3958-4e25-a0c7-39ee81097dc3
+		sourceLineageTag: CreatedBy
+		summarizeBy: none
+		sourceColumn: CreatedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDateTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: efcce221-3584-4a17-b2f2-eb5a55bb74b1
+		sourceLineageTag: CreatedDateTime
+		summarizeBy: none
+		sourceColumn: CreatedDateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column Monitoring_Url
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 922864f5-915c-4bdd-9f0c-3128227522cc
+		sourceLineageTag: Monitoring_Url
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: Monitoring_Url
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemDuration
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: b3f9d5d4-0975-4ef5-ab85-06f516b85df3
+		sourceLineageTag: ItemDuration
+		summarizeBy: none
+		sourceColumn: ItemDuration
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 07d39997-b46c-4f3a-ae58-8772770ee585
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+	partition itemexecution = entity
+		mode: directLake
+		source
+			entityName: itemexecution
+			schemaName: Refined
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

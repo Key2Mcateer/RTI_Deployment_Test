@@ -1,0 +1,192 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Web Get AKV Client ID",
+        "type": "WebActivity",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "method": "GET",
+          "headers": {},
+          "relativeUrl": "/rti-client-id/b70776af68f14b3391c2c6844c1ac9d4?api-version=7.0"
+        },
+        "externalReferences": {
+          "connection": "3b490f00-3fa0-4aca-bb27-4be752009bce"
+        }
+      },
+      {
+        "name": "Web Get AKV Secret",
+        "type": "WebActivity",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "method": "GET",
+          "headers": {},
+          "relativeUrl": "/rti-client-secret/86bb50776c5449efac921ae32fb04d50?api-version=7.0"
+        },
+        "externalReferences": {
+          "connection": "3b490f00-3fa0-4aca-bb27-4be752009bce"
+        }
+      },
+      {
+        "name": "Web Get Eventhub Token",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "Web Get AKV Client ID",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Web Get AKV Secret",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "body": {
+            "value": "@concat('grant_type=client_credentials',\n'&resource=https://eventhubs.azure.net',\n'&client_id=',\nactivity('Web Get AKV Client ID').output.value,\n'&client_secret=',\nactivity('Web Get AKV Secret').output.value\n)",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "95c0b3a5-b186-45e7-bbe1-b21a08f39197"
+        }
+      },
+      {
+        "name": "Web Send To Evenstream Endpoint",
+        "type": "WebActivity",
+        "dependsOn": [
+          {
+            "activity": "Web Get Eventhub Token",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "method": "POST",
+          "headers": {
+            "Authorization": {
+              "value": "@concat('Bearer ',\nactivity('Web Get Eventhub Token').output.access_token   \n)",
+              "type": "Expression"
+            },
+            "Content-Type": "application/atom+xml;type=entry;charset=utf-8"
+          },
+          "relativeUrl": "/es_2b7ae6e6-e903-4759-a37a-500d3036d8d3/messages",
+          "body": {
+            "value": "@concat('{',\n'\"ItemWorkspaceID\": \"', pipeline().parameters.ItemWorkspaceID, '\", ',\n'\"ItemWorkspaceName\": \"', pipeline().parameters.ItemWorkspaceName, '\", ',\n'\"ItemID\": \"', pipeline().parameters.ItemID, '\", ',\n'\"ItemName\": \"', pipeline().parameters.ItemName, '\", ',\n'\"ItemType\": \"', pipeline().parameters.ItemType, '\", ',\n'\"ItemGroupID\": \"', pipeline().parameters.ItemGroupID, '\", ',\n'\"ItemRunID\": \"', pipeline().parameters.ItemRunID, '\", ',\n'\"ItemRunStatus\": \"', variables('Status'), '\", ',\n'\"ItemFolderPath\": \"', pipeline().parameters.ItemFolderPath, '\", ',\n'\"ParentItemID\": \"', pipeline().parameters.ParentItemID, '\", ',\n'\"ParentItemName\": \"', pipeline().parameters.ParentItemName, '\", ',\n'\"ParentItemRunID\": \"', pipeline().parameters.ParentItemRunID, '\", ',\n'\"EventDateTime\": \"', utcNow(), '\", ',\n'\"TriggerID\": \"', pipeline().parameters.TriggerID, '\", ',\n'\"TriggerName\": \"', pipeline().parameters.TriggerName, '\", ',\n'\"TriggerType\": \"', pipeline().parameters.TriggerType, '\", ',\n'\"TriggerDateTime\": \"', pipeline().parameters.TriggerDateTime, '\", ',\n'\"TriggerEventSource\": \"', pipeline().parameters.TriggerEventSource, '\", ',\n'\"TriggerEventSubject\": \"', pipeline().parameters.TriggerEventSubject, '\", ',\n'\"TriggerFileName\": \"', pipeline().parameters.TriggerFileName, '\", ',\n'\"TriggerFolderPath\": \"', pipeline().parameters.TriggerFolderPath, '\", ',\n'\"AlertToTeamsGroupID\": \"\", ',\n'\"AlertToTeamsChannelID\": \"\", ',\n'\"AlertToEmail\": \"\", ',\n'\"ExecutionErrorMessage\": \"\", ',\n'\"CreatedBy\": \"', pipeline().parameters.CreatedBy, '\", ',\n'\"CreatedDateTime\": \"', pipeline().parameters.CreatedDateTime,  '\"',\n'}')",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "9c2d359a-2f08-4570-a747-2b422e5abc5b"
+        }
+      }
+    ],
+    "parameters": {
+      "ItemWorkspaceID": {
+        "type": "string"
+      },
+      "ItemID": {
+        "type": "string"
+      },
+      "ItemName": {
+        "type": "string"
+      },
+      "ItemType": {
+        "type": "string"
+      },
+      "ItemGroupID": {
+        "type": "string"
+      },
+      "ItemRunID": {
+        "type": "string"
+      },
+      "ItemFolderPath": {
+        "type": "string"
+      },
+      "ParentItemID": {
+        "type": "string"
+      },
+      "ParentItemName": {
+        "type": "string"
+      },
+      "ParentItemRunID": {
+        "type": "string"
+      },
+      "TriggerID": {
+        "type": "string"
+      },
+      "TriggerName": {
+        "type": "string"
+      },
+      "TriggerType": {
+        "type": "string"
+      },
+      "TriggerDateTime": {
+        "type": "string"
+      },
+      "TriggerEventSource": {
+        "type": "string"
+      },
+      "TriggerEventSubject": {
+        "type": "string"
+      },
+      "TriggerFileName": {
+        "type": "string"
+      },
+      "TriggerFolderPath": {
+        "type": "string"
+      },
+      "CreatedBy": {
+        "type": "string"
+      },
+      "CreatedDateTime": {
+        "type": "string"
+      },
+      "ItemWorkspaceName": {
+        "type": "string"
+      }
+    },
+    "variables": {
+      "Status": {
+        "type": "String",
+        "defaultValue": "In Progress"
+      }
+    }
+  }
+}

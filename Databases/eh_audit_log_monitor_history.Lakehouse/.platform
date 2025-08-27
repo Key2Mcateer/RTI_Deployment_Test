@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "eh_audit_log_monitor_history"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ddbf73f4-213e-a35f-4c9d-94c76bbd495a"
+  }
+}

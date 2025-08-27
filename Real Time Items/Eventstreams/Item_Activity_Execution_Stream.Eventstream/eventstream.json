@@ -1,0 +1,57 @@
+{
+  "sources": [
+    {
+      "id": "8ca0d65d-176e-4825-b452-6126e7da822e",
+      "name": "Activity-Execution",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "e2ac3175-ca6e-4de8-9126-c4b35ac01c43",
+      "name": "Item-Activity-Execution-History",
+      "type": "Lakehouse",
+      "properties": {
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "ddbf73f4-213e-a35f-4c9d-94c76bbd495a",
+        "schema": "Raw",
+        "deltaTable": "Item_Activity_Execution",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "Activities_Execution_Stream-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "Activities_Execution_Stream-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "450285fd-f06c-457c-93da-2b3d156e436d",
+      "name": "Activities_Execution_Stream-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "Activity-Execution"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.0"
+}

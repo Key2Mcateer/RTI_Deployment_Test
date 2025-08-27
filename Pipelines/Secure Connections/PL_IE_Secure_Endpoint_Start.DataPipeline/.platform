@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_IE_Secure_Endpoint_Start"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c8ccfc83-960e-8ff8-4b64-c390f9d108fa"
+  }
+}

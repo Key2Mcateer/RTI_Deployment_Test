@@ -1,0 +1,83 @@
+{
+  "sources": [
+    {
+      "id": "2aa6fe5f-89fd-406a-bb25-35ccce270aca",
+      "name": "Item-Execution-Endpoint",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "35992d40-58dc-48d6-a2c9-3c73e27596f4",
+      "name": "ItemExecution",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "DirectIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "616e9892-61c6-8304-42a2-bbae1368edf2",
+        "tableName": "Item_Execution",
+        "connectionName": null,
+        "mappingRuleName": null
+      },
+      "inputNodes": [
+        {
+          "name": "Item_Execution_Stream-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "Item_Execution_Stream-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "88d6fa71-0266-4765-8a0e-f6ff7b741898",
+      "name": "Item-Execution-History",
+      "type": "Lakehouse",
+      "properties": {
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "ddbf73f4-213e-a35f-4c9d-94c76bbd495a",
+        "schema": "Raw",
+        "deltaTable": "Item_Execution",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "Item_Execution_Stream-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "Item_Execution_Stream-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "04cbb137-22df-490c-acec-5f7fcade261f",
+      "name": "Item_Execution_Stream-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "Item-Execution-Endpoint"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.0"
+}

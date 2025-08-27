@@ -1,0 +1,312 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Lookup",
+        "typeProperties": {
+          "source": {
+            "type": "KustoDatabaseSource",
+            "query": {
+              "value": "@concat('get_item_run_details(\"',\n        pipeline().parameters.p_pipeline_run_id,\n        '\")'\n)\n",
+              "type": "Expression"
+            },
+            "noTruncation": true,
+            "queryTimeout": "01:00:00"
+          },
+          "datasetSettings": {
+            "type": "KustoDatabaseTable",
+            "typeProperties": {},
+            "schema": [],
+            "linkedService": {
+              "name": "eh_audit_log_monitor",
+              "properties": {
+                "type": "KustoDatabase",
+                "typeProperties": {
+                  "endpoint": "https://trd-twx3r7re0rwrcenwp3.z8.kusto.fabric.microsoft.com",
+                  "workspaceId": "00000000-0000-0000-0000-000000000000",
+                  "database": "616e9892-61c6-8304-42a2-bbae1368edf2"
+                },
+                "annotations": []
+              }
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Get Item Run Details",
+        "dependsOn": []
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@pipeline().parameters.p_send_email",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "AzureFunctionActivity",
+              "typeProperties": {
+                "functionName": "generate_email_message",
+                "functionSetId": "a21d5007-f98c-99c1-4df1-29ae0f5c6999",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "Status": {
+                    "value": "@pipeline().parameters.p_pipeline_status",
+                    "type": "Expression"
+                  },
+                  "PipelineID": {
+                    "value": "@activity('Get Item Run Details').output.firstRow.item_id",
+                    "type": "Expression"
+                  },
+                  "PipelineRunID": {
+                    "value": "@activity('Get Item Run Details').output.firstRow.item_run_id",
+                    "type": "Expression"
+                  },
+                  "PipelineName": {
+                    "value": "@activity('Get Item Run Details').output.firstRow.item_name",
+                    "type": "Expression"
+                  },
+                  "WorkspaceID": {
+                    "value": "@activity('Get Item Run Details').output.firstRow.workspace_id",
+                    "type": "Expression"
+                  },
+                  "WorkspaceName": {
+                    "value": "@activity('Get Item Run Details').output.firstRow.workspace_name",
+                    "type": "Expression"
+                  },
+                  "StartTime": {
+                    "value": "@formatDateTime(activity('Get Item Run Details').output.firstRow.start_time, 'yyyy-MM-dd hh:mm:ss')",
+                    "type": "Expression"
+                  },
+                  "EndTime": {
+                    "value": "@formatDateTime(activity('Get Item Run Details').output.firstRow.end_time, 'yyyy-MM-dd hh:mm:ss')",
+                    "type": "Expression"
+                  },
+                  "FailingObject": {
+                    "value": "@pipeline().parameters.FailingObject",
+                    "type": "Expression"
+                  },
+                  "ErrorMessage": {
+                    "value": "@pipeline().parameters.NotificationError",
+                    "type": "Expression"
+                  }
+                }
+              },
+              "externalReferences": {
+                "connection": "e33d1641-13a9-4869-bcaa-c81cb5566e12"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Get Email HTML",
+              "dependsOn": []
+            },
+            {
+              "type": "Office365Outlook",
+              "typeProperties": {
+                "inputs": {
+                  "body": {
+                    "To": "@pipeline().parameters.p_alert_email",
+                    "Subject": "@concat(activity('Get Item Run Details').output.firstRow.item_name, ' ' , pipeline().parameters.p_pipeline_status\n\n)",
+                    "Body": "@activity('Get Email HTML').output.output",
+                    "Sensitivity": "",
+                    "Importance": "Normal"
+                  },
+                  "method": "post",
+                  "path": "/v2/Mail"
+                }
+              },
+              "name": "Office 365 Outlook1",
+              "dependsOn": [
+                {
+                  "activity": "Get Email HTML",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "If Send Email",
+        "dependsOn": [
+          {
+            "activity": "Get Item Run Details",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@pipeline().parameters.p_send_teams_message",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "AzureFunctionActivity",
+              "typeProperties": {
+                "functionName": "generate_teams_message",
+                "functionSetId": "a21d5007-f98c-99c1-4df1-29ae0f5c6999",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "Status": {
+                    "value": "@pipeline().parameters.p_pipeline_status",
+                    "type": "Expression"
+                  },
+                  "PipelineID": {
+                    "value": "@activity('Get Item Run Details').output.firstRow.item_id",
+                    "type": "Expression"
+                  },
+                  "PipelineRunID": {
+                    "value": "@activity('Get Item Run Details').output.firstRow.item_run_id",
+                    "type": "Expression"
+                  },
+                  "PipelineName": {
+                    "value": "@activity('Get Item Run Details').output.firstRow.item_name",
+                    "type": "Expression"
+                  },
+                  "WorkspaceID": {
+                    "value": "@activity('Get Item Run Details').output.firstRow.workspace_id",
+                    "type": "Expression"
+                  },
+                  "WorkspaceName": {
+                    "value": "@activity('Get Item Run Details').output.firstRow.workspace_name",
+                    "type": "Expression"
+                  },
+                  "StartTime": {
+                    "value": "@formatDateTime(activity('Get Item Run Details').output.firstRow.start_time, 'yyyy-MM-dd hh:mm:ss')",
+                    "type": "Expression"
+                  },
+                  "EndTime": {
+                    "value": "@formatDateTime(activity('Get Item Run Details').output.firstRow.end_time, 'yyyy-MM-dd hh:mm:ss')",
+                    "type": "Expression"
+                  },
+                  "FailingObject": {
+                    "value": "@pipeline().parameters.FailingObject",
+                    "type": "Expression"
+                  },
+                  "ErrorMessage": {
+                    "value": "@pipeline().parameters.NotificationError",
+                    "type": "Expression"
+                  }
+                }
+              },
+              "externalReferences": {
+                "connection": "e33d1641-13a9-4869-bcaa-c81cb5566e12"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Get Teams HTML",
+              "dependsOn": []
+            },
+            {
+              "type": "Teams",
+              "typeProperties": {
+                "inputs": {
+                  "body": {
+                    "recipient": {
+                      "groupId": "@pipeline().parameters.p_alert_teams_group_id",
+                      "channelId": "@pipeline().parameters.p_alert_teams_channel_id"
+                    },
+                    "messageBody": "@activity('Get Teams HTML').output.output",
+                    "subject": "@concat(activity('Get Item Run Details').output.firstRow.item_name, ' ', pipeline().parameters.p_pipeline_status)"
+                  },
+                  "method": "post",
+                  "path": "/beta/teams/conversation/message/poster/User/location/Channel"
+                }
+              },
+              "name": "Send Teams Message",
+              "dependsOn": [
+                {
+                  "activity": "Get Teams HTML",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "If Send Teams Message",
+        "dependsOn": [
+          {
+            "activity": "Get Item Run Details",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ],
+    "parameters": {
+      "p_send_email": {
+        "type": "bool",
+        "defaultValue": false
+      },
+      "p_send_teams_message": {
+        "type": "bool",
+        "defaultValue": false
+      },
+      "p_pipeline_run_id": {
+        "type": "string"
+      },
+      "p_pipeline_status": {
+        "type": "string"
+      },
+      "p_alert_email": {
+        "type": "string"
+      },
+      "p_alert_teams_group_id": {
+        "type": "string"
+      },
+      "p_alert_teams_channel_id": {
+        "type": "string"
+      },
+      "NotificationError": {
+        "type": "string"
+      },
+      "FailingObject": {
+        "type": "string"
+      }
+    },
+    "variables": {
+      "v_is_in_progress": {
+        "type": "Boolean"
+      },
+      "v_email_address": {
+        "type": "String"
+      },
+      "v_teams_channel_id": {
+        "type": "String"
+      },
+      "v_teams_group_id": {
+        "type": "String"
+      },
+      "ErrorMesssage": {
+        "type": "String"
+      }
+    }
+  }
+}
