@@ -26,8 +26,8 @@ import pandas as pd
 import sempy.fabric as fabric
 
 client = fabric.FabricRestClient()
-WorkspaceID = "3c1e7d50-a3b2-412e-ab7e-6d4b4cbbfc2c"
-url = "https://api.fabric.microsoft.com/v1/workspaces/3c1e7d50-a3b2-412e-ab7e-6d4b4cbbfc2c/dataPipelines"
+WorkspaceID = "e3ae1e1f-85de-4c90-b852-bbc5afe2d174"
+url = "https://api.fabric.microsoft.com/v1/workspaces/e3ae1e1f-85de-4c90-b852-bbc5afe2d174/copyJobs"
 
 response = client.get(url)
 

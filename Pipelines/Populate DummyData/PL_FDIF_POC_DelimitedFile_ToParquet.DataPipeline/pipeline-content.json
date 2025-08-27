@@ -1,0 +1,1258 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Lookup",
+        "typeProperties": {
+          "source": {
+            "type": "FabricSqlDatabaseSource",
+            "sqlReaderStoredProcedureName": "[integration].[usp_GetIntegrationTaskDelimitedFileList]",
+            "storedProcedureParameters": {
+              "IntegrationTaskKey": {
+                "value": {
+                  "value": "@pipeline().parameters.IntegrationTaskKey",
+                  "type": "Expression"
+                },
+                "type": "Int32"
+              }
+            },
+            "partitionOption": "None",
+            "queryTimeout": "02:00:00"
+          },
+          "datasetSettings": {
+            "type": "FabricSqlDatabaseTable",
+            "schema": [],
+            "connectionSettings": {
+              "name": "sql_audit_log",
+              "properties": {
+                "type": "FabricSqlDatabase",
+                "typeProperties": {
+                  "artifactId": "7b8531d5-5c70-412c-abd0-a662bc387ab8",
+                  "workspaceId": "4859f3fa-c817-4f3c-8e51-9c2123699750"
+                },
+                "externalReferences": {
+                  "connection": "e029c8d9-38fd-42e3-a7ba-df9f55dd2c2d"
+                },
+                "annotations": []
+              }
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Lookup Delimited File Mapping",
+        "dependsOn": [
+          {
+            "activity": "Invoke_Item_Execution_EventStream_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@equals(1,1)",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "SetVariable",
+              "typeProperties": {
+                "variableName": "varDestinationFileNameWithExtension",
+                "value": {
+                  "value": "@concat(\n\tactivity('Lookup Delimited File Mapping').output.firstRow.DestinationFileNamePrefix, \n\tactivity('Lookup Delimited File Mapping').output.firstRow.DestinationDatasetName,\n\t'_combined.parquet'\n\t)\n",
+                  "type": "Expression"
+                }
+              },
+              "policy": {
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Set varDestinationFileNameWithExtension",
+              "dependsOn": []
+            },
+            {
+              "type": "SetVariable",
+              "typeProperties": {
+                "variableName": "varSinkRelative",
+                "value": {
+                  "value": "@concat(\n    activity('Lookup Delimited File Mapping').output.firstRow.DestinationLoadFolder,\n    '/',\n    variables('varDestinationFileNameWithExtension')\n)",
+                  "type": "Expression"
+                }
+              },
+              "policy": {
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Set varSinkRelative",
+              "dependsOn": [
+                {
+                  "activity": "Set varDestinationFileNameWithExtension",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SetVariable",
+              "typeProperties": {
+                "variableName": "varSinkAbsolute",
+                "value": {
+                  "value": "@replace(\n    variables('varSinkRelative'), \n    activity('Lookup Delimited File Mapping').output.firstRow.DestinationDatasetRelativePath,\n    activity('Lookup Delimited File Mapping').output.firstRow.DestinationDatasetABSFPath\n)",
+                  "type": "Expression"
+                }
+              },
+              "policy": {
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Set varSinkAbsolute",
+              "dependsOn": [
+                {
+                  "activity": "Set varSinkRelative",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SetVariable",
+              "typeProperties": {
+                "variableName": "varDestinationFileName",
+                "value": {
+                  "value": "@concat(\n\tactivity('Lookup Delimited File Mapping').output.firstRow.DestinationFileNamePrefix, \n\tactivity('Lookup Delimited File Mapping').output.firstRow.DestinationDatasetName,\n\t'_combined'\n\t)\n",
+                  "type": "Expression"
+                }
+              },
+              "policy": {
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Set varDestinationFileName",
+              "dependsOn": []
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "Set Variables",
+        "dependsOn": [
+          {
+            "activity": "Lookup Delimited File Mapping",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "GetMetadata",
+        "typeProperties": {
+          "datasetSettings": {
+            "type": "Binary",
+            "typeProperties": {
+              "location": {
+                "type": "LakehouseLocation",
+                "folderPath": {
+                  "value": "@replace(     activity('Lookup Delimited File Mapping').output.firstRow.SourceDatasetRelativePath,     'Files/',     '' )",
+                  "type": "Expression"
+                },
+                "fileName": {
+                  "value": "@activity('Lookup Delimited File Mapping').output.firstRow.SourceDelimitedFileNamePattern",
+                  "type": "Expression"
+                }
+              }
+            },
+            "linkedService": {
+              "name": "a4a98599_3430_4416_9e2a_ff3c54d013c3",
+              "properties": {
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "artifactId": "@activity('Lookup Delimited File Mapping').output.firstRow.SourceConnectionDatasourceReference",
+                  "workspaceId": "@activity('Lookup Delimited File Mapping').output.firstRow.SourceWorkspaceID",
+                  "rootFolder": "Files"
+                },
+                "annotations": []
+              }
+            },
+            "annotations": []
+          },
+          "fieldList": [
+            "childItems"
+          ],
+          "storeSettings": {
+            "type": "LakehouseReadSettings",
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {
+            "type": "BinaryReadSettings"
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Get Metadata for Source Files",
+        "dependsOn": [
+          {
+            "activity": "Set Variables",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@greater(length(activity('Get Metadata for Source Files').output.childItems), 0)",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "Copy",
+              "typeProperties": {
+                "source": {
+                  "type": "DelimitedTextSource",
+                  "formatSettings": {
+                    "type": "DelimitedTextReadSettings"
+                  },
+                  "storeSettings": {
+                    "type": "LakehouseReadSettings",
+                    "recursive": true,
+                    "wildcardFolderPath": {
+                      "value": "@replace(     activity('Lookup Delimited File Mapping').output.firstRow.SourceDatasetRelativePath,     'Files/',     '' )",
+                      "type": "Expression"
+                    },
+                    "wildcardFileName": {
+                      "value": "@activity('Lookup Delimited File Mapping').output.firstRow.SourceDelimitedFileNamePattern",
+                      "type": "Expression"
+                    },
+                    "enablePartitionDiscovery": false
+                  },
+                  "datasetSettings": {
+                    "type": "DelimitedText",
+                    "typeProperties": {
+                      "location": {
+                        "type": "LakehouseLocation"
+                      },
+                      "columnDelimiter": ",",
+                      "quoteChar": "\"",
+                      "escapeChar": "\\",
+                      "firstRowAsHeader": true
+                    },
+                    "schema": [],
+                    "linkedService": {
+                      "name": "b48a0f96_a86f_4d08_97cc_496e1b45a2b5",
+                      "properties": {
+                        "type": "Lakehouse",
+                        "typeProperties": {
+                          "artifactId": "@activity('Lookup Delimited File Mapping').output.firstRow.SourceConnectionDatasourceReference",
+                          "workspaceId": "@activity('Lookup Delimited File Mapping').output.firstRow.SourceWorkspaceID",
+                          "rootFolder": "Files"
+                        },
+                        "annotations": []
+                      }
+                    },
+                    "annotations": []
+                  }
+                },
+                "sink": {
+                  "type": "ParquetSink",
+                  "formatSettings": {
+                    "type": "ParquetWriteSettings",
+                    "enableVertiParquet": true
+                  },
+                  "storeSettings": {
+                    "type": "LakehouseWriteSettings",
+                    "copyBehavior": "MergeFiles"
+                  },
+                  "datasetSettings": {
+                    "type": "Parquet",
+                    "typeProperties": {
+                      "location": {
+                        "type": "LakehouseLocation",
+                        "folderPath": {
+                          "value": "@replace(     activity('Lookup Delimited File Mapping').output.firstRow.DestinationLoadFolder,     'Files/',     '' )",
+                          "type": "Expression"
+                        },
+                        "fileName": {
+                          "value": "@variables('varDestinationFileNameWithExtension')",
+                          "type": "Expression"
+                        }
+                      },
+                      "compressionCodec": "snappy"
+                    },
+                    "schema": [],
+                    "linkedService": {
+                      "name": "432f1b01_00e0_4ea6_ba7b_249ab55eafc9",
+                      "properties": {
+                        "type": "Lakehouse",
+                        "typeProperties": {
+                          "artifactId": "@activity('Lookup Delimited File Mapping').output.firstRow.DestinationConnectionDatasourceReference",
+                          "workspaceId": "@activity('Lookup Delimited File Mapping').output.firstRow.DestinationWorkspaceID",
+                          "rootFolder": "Files"
+                        },
+                        "annotations": []
+                      }
+                    },
+                    "annotations": []
+                  }
+                },
+                "translator": {
+                  "type": "TabularTranslator",
+                  "typeConversion": true,
+                  "typeConversionSettings": {
+                    "allowDataTruncation": true,
+                    "treatBooleanAsNumber": false
+                  }
+                },
+                "enableStaging": false
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "DummyData",
+              "dependsOn": []
+            },
+            {
+              "type": "ExecutePipeline",
+              "typeProperties": {
+                "pipeline": {
+                  "referenceName": "a5d8a9cd-12b7-8e21-406b-e247cf2cb5cd",
+                  "type": "PipelineReference"
+                },
+                "parameters": {
+                  "ABFSPath": {
+                    "value": "@variables('varSinkAbsolute')",
+                    "type": "Expression"
+                  },
+                  "DataEntityActivityRunID": {
+                    "value": "@activity('DummyData').ActivityRunId",
+                    "type": "Expression"
+                  },
+                  "DataEntityStartDateTime": {
+                    "value": "@activity('DummyData').ExecutionStartTime",
+                    "type": "Expression"
+                  },
+                  "DataEntityLakehouseID": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.DestinationLakehouseID",
+                    "type": "Expression"
+                  },
+                  "DataEntityLakehouseName": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.DestinationLakehouseName",
+                    "type": "Expression"
+                  },
+                  "DataEntityLoadType": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.IntegrationTaskLoadType",
+                    "type": "Expression"
+                  },
+                  "DataEntityName": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.DestinationDatasetName",
+                    "type": "Expression"
+                  },
+                  "DataEntityNameSpace": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.DestinationDatasetNameSpace",
+                    "type": "Expression"
+                  },
+                  "DataEntityWorkspaceID": {
+                    "value": "@pipeline().libraryVariables.WorkspaceId",
+                    "type": "Expression"
+                  },
+                  "FileName": {
+                    "value": "@variables('varDestinationFileName')",
+                    "type": "Expression"
+                  },
+                  "FileNameWithExt": {
+                    "value": "@variables('varDestinationFileNameWithExtension')",
+                    "type": "Expression"
+                  },
+                  "InsertCount": {
+                    "value": "@activity('DummyData').output.dataWritten",
+                    "type": "Expression"
+                  },
+                  "ItemRunID": {
+                    "value": "@pipeline().RunId",
+                    "type": "Expression"
+                  },
+                  "RelativePath": {
+                    "value": "@variables('varSinkRelative')",
+                    "type": "Expression"
+                  },
+                  "RowsCopied": {
+                    "value": "@activity('DummyData').output.rowsCopied",
+                    "type": "Expression"
+                  },
+                  "RowsRead": {
+                    "value": "@activity('DummyData').output.rowsRead",
+                    "type": "Expression"
+                  },
+                  "CopyDuration": {
+                    "value": "@activity('DummyData').output.copyDuration",
+                    "type": "Expression"
+                  },
+                  "FilesRead": {
+                    "value": "@activity('DummyData').output.filesRead",
+                    "type": "Expression"
+                  },
+                  "FilesWritten": {
+                    "value": "@activity('DummyData').output.filesWritten",
+                    "type": "Expression"
+                  },
+                  "IntegrationGroupKey": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.IntegrationGroupKey",
+                    "type": "Expression"
+                  },
+                  "IntegrationTaskKey": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.IntegrationTaskKey",
+                    "type": "Expression"
+                  },
+                  "RelatedIntegrationTaskKey": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.RelatedIntegrationTaskKey",
+                    "type": "Expression"
+                  },
+                  "CreatedDateTime": "test",
+                  "DataEntityWorkspaceName": {
+                    "value": "@variables('v_workspace_name')",
+                    "type": "Expression"
+                  },
+                  "DataEntityEndDateTime": {
+                    "value": "@activity('DummyData').ExecutionStartTime",
+                    "type": "Expression"
+                  },
+                  "DataEntityActivityName": "DummyData",
+                  "CreatedBy": "test"
+                },
+                "waitOnCompletion": true
+              },
+              "policy": {
+                "secureInput": false
+              },
+              "name": "Invoke_Item_Data_Entity_DummyData_Success",
+              "dependsOn": [
+                {
+                  "activity": "DummyData",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ExecutePipeline",
+              "typeProperties": {
+                "pipeline": {
+                  "referenceName": "ddd5661f-e765-8b15-4dec-55dd0bfc06cd",
+                  "type": "PipelineReference"
+                },
+                "parameters": {
+                  "ABFSPath": {
+                    "value": "@variables('varSinkAbsolute')",
+                    "type": "Expression"
+                  },
+                  "DataEntityActivityRunID": {
+                    "value": "@activity('DummyData').ActivityRunId",
+                    "type": "Expression"
+                  },
+                  "DataEntityStartDateTime": {
+                    "value": "@activity('DummyData').ExecutionStartTime",
+                    "type": "Expression"
+                  },
+                  "DataEntityLakehouseID": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.DestinationLakehouseID",
+                    "type": "Expression"
+                  },
+                  "DataEntityLakehouseName": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.DestinationLakehouseName",
+                    "type": "Expression"
+                  },
+                  "DataEntityLoadType": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.IntegrationTaskLoadType",
+                    "type": "Expression"
+                  },
+                  "DataEntityName": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.DestinationDatasetName",
+                    "type": "Expression"
+                  },
+                  "DataEntityNameSpace": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.DestinationDatasetNameSpace",
+                    "type": "Expression"
+                  },
+                  "DataEntityWorkspaceID": {
+                    "value": "@pipeline().libraryVariables.WorkspaceId",
+                    "type": "Expression"
+                  },
+                  "FileName": {
+                    "value": "@variables('varDestinationFileName')",
+                    "type": "Expression"
+                  },
+                  "FileNameWithExt": {
+                    "value": "@variables('varDestinationFileNameWithExtension')",
+                    "type": "Expression"
+                  },
+                  "ItemRunID": {
+                    "value": "@pipeline().RunId",
+                    "type": "Expression"
+                  },
+                  "RelativePath": {
+                    "value": "@variables('varSinkRelative')",
+                    "type": "Expression"
+                  },
+                  "IntegrationGroupKey": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.IntegrationGroupKey",
+                    "type": "Expression"
+                  },
+                  "IntegrationTaskKey": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.IntegrationTaskKey",
+                    "type": "Expression"
+                  },
+                  "RelatedIntegrationTaskKey": {
+                    "value": "@activity('Lookup Delimited File Mapping').output.firstRow.RelatedIntegrationTaskKey",
+                    "type": "Expression"
+                  },
+                  "CreatedDateTime": "test",
+                  "DataEntityWorkspaceName": {
+                    "value": "@variables('v_workspace_name')",
+                    "type": "Expression"
+                  },
+                  "DataEntityEndDateTime": {
+                    "value": "@activity('DummyData').ExecutionEndTime",
+                    "type": "Expression"
+                  },
+                  "DataEntityActivityName": "DummyData",
+                  "ExecutionErrorMessage": {
+                    "value": "@variables('DummyDataErrorRefined')",
+                    "type": "Expression"
+                  },
+                  "CreatedBy": "test"
+                },
+                "waitOnCompletion": true
+              },
+              "policy": {
+                "secureInput": false
+              },
+              "name": "Invoke_Item_Data_Entity_DummyData_Failure",
+              "dependsOn": [
+                {
+                  "activity": "Format_Error",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ExecutePipeline",
+              "typeProperties": {
+                "pipeline": {
+                  "referenceName": "502543d6-757d-8b9e-477b-fa8450739d24",
+                  "type": "PipelineReference"
+                },
+                "parameters": {
+                  "ItemActivityName": "DummyData",
+                  "ItemActivityType": {
+                    "value": "@activity('DummyData').ActivityType",
+                    "type": "Expression"
+                  },
+                  "ItemActivityRunID": {
+                    "value": "@activity('DummyData').ActivityRunId",
+                    "type": "Expression"
+                  },
+                  "ItemRunID": {
+                    "value": "@pipeline().RunId",
+                    "type": "Expression"
+                  },
+                  "ItemActivityStartDateTime": {
+                    "value": "@activity('DummyData').ExecutionStartTime",
+                    "type": "Expression"
+                  },
+                  "ItemActivityEndDateTime": {
+                    "value": "@activity('DummyData').ExecutionEndTime",
+                    "type": "Expression"
+                  }
+                },
+                "waitOnCompletion": true
+              },
+              "policy": {
+                "secureInput": false
+              },
+              "name": "Invoke_Activity_Execution_API_Succeeded",
+              "dependsOn": [
+                {
+                  "activity": "DummyData",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ExecutePipeline",
+              "typeProperties": {
+                "pipeline": {
+                  "referenceName": "0079dde3-d04b-85f6-4dad-4e202e98eab1",
+                  "type": "PipelineReference"
+                },
+                "parameters": {
+                  "ItemActivityName": "DummyData",
+                  "ItemActivityType": {
+                    "value": "@activity('DummyData').ActivityType",
+                    "type": "Expression"
+                  },
+                  "ItemActivityRunID": {
+                    "value": "@activity('DummyData').ActivityRunId",
+                    "type": "Expression"
+                  },
+                  "ItemRunID": {
+                    "value": "@pipeline().RunId",
+                    "type": "Expression"
+                  },
+                  "ItemActivityStartDateTime": {
+                    "value": "@activity('DummyData').ExecutionStartTime",
+                    "type": "Expression"
+                  },
+                  "ItemActivityEndDateTime": {
+                    "value": "@activity('DummyData').ExecutionEndTime",
+                    "type": "Expression"
+                  }
+                },
+                "waitOnCompletion": true
+              },
+              "policy": {
+                "secureInput": false
+              },
+              "name": "Invoke_Activity_Execution_Failed",
+              "dependsOn": [
+                {
+                  "activity": "DummyData",
+                  "dependencyConditions": [
+                    "Failed"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ExecutePipeline",
+              "typeProperties": {
+                "pipeline": {
+                  "referenceName": "049e5a39-cdd0-9c1d-44f4-70cfdc9a92af",
+                  "type": "PipelineReference"
+                },
+                "parameters": {
+                  "ItemResultName": "test",
+                  "ItemResultValue": "test",
+                  "ItemActivityRunID": "test",
+                  "ItemActivityStartDateTime": {
+                    "value": "@activity('DummyData').ExecutionStartTime",
+                    "type": "Expression"
+                  },
+                  "ItemRunID": {
+                    "value": "@pipeline().RunId",
+                    "type": "Expression"
+                  },
+                  "ItemActivityName": "DummyData",
+                  "ItemActivityEndDateTime": {
+                    "value": "@activity('DummyData').ExecutionEndTime",
+                    "type": "Expression"
+                  }
+                },
+                "waitOnCompletion": true
+              },
+              "policy": {
+                "secureInput": false
+              },
+              "name": "Invoke_Activity_Result_API_Success",
+              "dependsOn": [
+                {
+                  "activity": "DummyData",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ExecutePipeline",
+              "typeProperties": {
+                "pipeline": {
+                  "referenceName": "049e5a39-cdd0-9c1d-44f4-70cfdc9a92af",
+                  "type": "PipelineReference"
+                },
+                "parameters": {
+                  "ItemResultName": "test",
+                  "ItemResultValue": "test",
+                  "ItemActivityRunID": "test",
+                  "ItemActivityStartDateTime": {
+                    "value": "@activity('DummyData').ExecutionStartTime",
+                    "type": "Expression"
+                  },
+                  "ItemActivityStatus": "Failed",
+                  "ItemRunID": {
+                    "value": "@pipeline().RunId",
+                    "type": "Expression"
+                  },
+                  "ItemActivityName": "DummyData",
+                  "ItemActivityEndDateTime": {
+                    "value": "@activity('DummyData').ExecutionEndTime",
+                    "type": "Expression"
+                  }
+                },
+                "waitOnCompletion": true
+              },
+              "policy": {
+                "secureInput": false
+              },
+              "name": "Invoke_Activity_Result_API_Failure",
+              "dependsOn": [
+                {
+                  "activity": "DummyData",
+                  "dependencyConditions": [
+                    "Failed"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SetVariable",
+              "typeProperties": {
+                "variableName": "DummyDataError",
+                "value": {
+                  "value": "@string(activity('DummyData').error.message)",
+                  "type": "Expression"
+                }
+              },
+              "policy": {
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Set Copy Activity Error",
+              "dependsOn": [
+                {
+                  "activity": "DummyData",
+                  "dependencyConditions": [
+                    "Failed"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SetVariable",
+              "typeProperties": {
+                "variableName": "DummyDataErrorRefined",
+                "value": {
+                  "value": "@replace(replace(replace(replace(variables('DummyDataError'), \n'\\', '\\\\'), '\"', '\\\"'), '\\r', '\\\\r'), '\\n', '\\\\n')\n",
+                  "type": "Expression"
+                }
+              },
+              "policy": {
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Format_Error",
+              "description": "escapes \"/n\", \"/r\", \"//\"",
+              "dependsOn": [
+                {
+                  "activity": "Set Copy Activity Error",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "If One or More Source Files Exist",
+        "dependsOn": [
+          {
+            "activity": "Get Metadata for Source Files",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ExecutePipeline",
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "c8ccfc83-960e-8ff8-4b64-c390f9d108fa",
+            "type": "PipelineReference"
+          },
+          "parameters": {
+            "ItemWorkspaceID": {
+              "value": "@pipeline().DataFactory",
+              "type": "Expression"
+            },
+            "ItemID": {
+              "value": "@pipeline().Pipeline",
+              "type": "Expression"
+            },
+            "ItemName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
+            "ItemGroupID": {
+              "value": "@pipeline().GroupId",
+              "type": "Expression"
+            },
+            "ItemRunID": {
+              "value": "@pipeline().RunId",
+              "type": "Expression"
+            },
+            "ParentItemID": {
+              "value": "@pipeline()?.TriggeredByPipeline",
+              "type": "Expression"
+            },
+            "ParentItemName": {
+              "value": "@pipeline()?.TriggeredByPipelineName",
+              "type": "Expression"
+            },
+            "ParentItemRunID": {
+              "value": "@pipeline()?.TriggeredByPipelineRunId",
+              "type": "Expression"
+            },
+            "TriggerID": {
+              "value": "@pipeline().TriggerId",
+              "type": "Expression"
+            },
+            "TriggerName": {
+              "value": "@pipeline()?.TriggerEvent?.FileName",
+              "type": "Expression"
+            },
+            "TriggerType": {
+              "value": "@pipeline()?.TriggerEvent?.Type",
+              "type": "Expression"
+            },
+            "TriggerDateTime": {
+              "value": "@pipeline().TriggerTime",
+              "type": "Expression"
+            },
+            "TriggerEventSource": {
+              "value": "@pipeline()?.TriggerEvent?.Type",
+              "type": "Expression"
+            },
+            "TriggerEventSubject": {
+              "value": "@pipeline()?.TriggerEvent?.Subject",
+              "type": "Expression"
+            },
+            "TriggerFileName": {
+              "value": "@pipeline()?.TriggerEvent?.FileName",
+              "type": "Expression"
+            },
+            "TriggerFolderPath": {
+              "value": "@pipeline()?.TriggerEvent?.FolderPath",
+              "type": "Expression"
+            },
+            "ItemWorkspaceName": {
+              "value": "@variables('v_workspace_name')",
+              "type": "Expression"
+            }
+          },
+          "waitOnCompletion": true
+        },
+        "policy": {
+          "secureInput": false
+        },
+        "name": "Invoke_Item_Execution_EventStream_Start",
+        "dependsOn": [
+          {
+            "activity": "Set WorkspaceName Variable",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ExecutePipeline",
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "85a57262-3bdf-9ae6-4141-d5b005f58ba3",
+            "type": "PipelineReference"
+          },
+          "parameters": {
+            "ItemWorkspaceID": {
+              "value": "@pipeline().DataFactory",
+              "type": "Expression"
+            },
+            "ItemID": {
+              "value": "@pipeline().Pipeline",
+              "type": "Expression"
+            },
+            "ItemName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
+            "ItemGroupID": {
+              "value": "@pipeline().GroupId",
+              "type": "Expression"
+            },
+            "ItemRunID": {
+              "value": "@pipeline().RunId",
+              "type": "Expression"
+            },
+            "ParentItemID": {
+              "value": "@pipeline()?.TriggeredByPipeline",
+              "type": "Expression"
+            },
+            "ParentItemName": {
+              "value": "@pipeline()?.TriggeredByPipelineName",
+              "type": "Expression"
+            },
+            "ParentItemRunID": {
+              "value": "@pipeline()?.TriggeredByPipelineRunId",
+              "type": "Expression"
+            },
+            "TriggerID": {
+              "value": "@pipeline().TriggerId",
+              "type": "Expression"
+            },
+            "TriggerName": {
+              "value": "@pipeline()?.TriggerEvent?.FileName",
+              "type": "Expression"
+            },
+            "TriggerType": {
+              "value": "@pipeline()?.TriggerEvent?.Type",
+              "type": "Expression"
+            },
+            "TriggerDateTime": {
+              "value": "@pipeline().TriggerTime",
+              "type": "Expression"
+            },
+            "TriggerEventSource": {
+              "value": "@pipeline()?.TriggerEvent?.Type",
+              "type": "Expression"
+            },
+            "TriggerEventSubject": {
+              "value": "@pipeline()?.TriggerEvent?.Subject",
+              "type": "Expression"
+            },
+            "TriggerFileName": {
+              "value": "@pipeline()?.TriggerEvent?.FileName",
+              "type": "Expression"
+            },
+            "TriggerFolderPath": {
+              "value": "@pipeline()?.TriggerEvent?.FolderPath",
+              "type": "Expression"
+            },
+            "AlertToTeamsGroupID": {
+              "value": "@pipeline().libraryVariables.var_Alert_TeamsGroupID",
+              "type": "Expression"
+            },
+            "AlertToTeamsChannelID": {
+              "value": "@pipeline().libraryVariables.var_Alert_TeamsChannelID",
+              "type": "Expression"
+            },
+            "AlertToEmail": {
+              "value": "@pipeline().libraryVariables.var_Alert_EmailRecipient",
+              "type": "Expression"
+            },
+            "ItemWorkspaceName": {
+              "value": "@variables('v_workspace_name')",
+              "type": "Expression"
+            },
+            "ExecutionErrorMessage": "The pipeline run failed due to an activity failure",
+            "NotificationError": {
+              "value": "@variables('DummyDataErrorRefined')",
+              "type": "Expression"
+            },
+            "FailingObject": {
+              "value": "@concat(\n    pipeline().PipelineName,\n    '|',\n    activity('Lookup Delimited File Mapping').output.firstRow.DestinationLakehouseName,\n    '.',\n    activity('Lookup Delimited File Mapping').output.firstRow.DestinationDatasetNameSpace,\n    '.',\n    activity('Lookup Delimited File Mapping').output.firstRow.DestinationDatasetName\n)",
+              "type": "Expression"
+            }
+          },
+          "waitOnCompletion": true
+        },
+        "policy": {
+          "secureInput": false
+        },
+        "name": "Invoke_Item_Execution_EventStream_Failed",
+        "dependsOn": [
+          {
+            "activity": "Invoke_ExecutionError_EventStream",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ExecutePipeline",
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "33bff64c-fd65-a49e-4b5d-d9da603caeea",
+            "type": "PipelineReference"
+          },
+          "parameters": {
+            "ItemWorkspaceID": {
+              "value": "@pipeline().DataFactory",
+              "type": "Expression"
+            },
+            "ItemID": {
+              "value": "@pipeline().Pipeline",
+              "type": "Expression"
+            },
+            "ItemName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
+            "ItemGroupID": {
+              "value": "@pipeline().GroupId",
+              "type": "Expression"
+            },
+            "ItemRunID": {
+              "value": "@pipeline().RunId",
+              "type": "Expression"
+            },
+            "ParentItemID": {
+              "value": "@pipeline()?.TriggeredByPipeline",
+              "type": "Expression"
+            },
+            "ParentItemName": {
+              "value": "@pipeline()?.TriggeredByPipelineName",
+              "type": "Expression"
+            },
+            "ParentItemRunID": {
+              "value": "@pipeline()?.TriggeredByPipelineRunId",
+              "type": "Expression"
+            },
+            "TriggerID": {
+              "value": "@pipeline().TriggerId",
+              "type": "Expression"
+            },
+            "TriggerName": {
+              "value": "@pipeline()?.TriggerEvent?.FileName",
+              "type": "Expression"
+            },
+            "TriggerType": {
+              "value": "@pipeline()?.TriggerEvent?.Type",
+              "type": "Expression"
+            },
+            "TriggerDateTime": {
+              "value": "@pipeline().TriggerTime",
+              "type": "Expression"
+            },
+            "TriggerEventSource": {
+              "value": "@pipeline()?.TriggerEvent?.Type",
+              "type": "Expression"
+            },
+            "TriggerEventSubject": {
+              "value": "@pipeline()?.TriggerEvent?.Subject",
+              "type": "Expression"
+            },
+            "TriggerFileName": {
+              "value": "@pipeline()?.TriggerEvent?.FileName",
+              "type": "Expression"
+            },
+            "TriggerFolderPath": {
+              "value": "@pipeline()?.TriggerEvent?.FolderPath",
+              "type": "Expression"
+            },
+            "AlertToTeamsGroupID": {
+              "value": "@pipeline().libraryVariables.var_Alert_TeamsGroupID",
+              "type": "Expression"
+            },
+            "AlertToTeamsChannelID": {
+              "value": "@pipeline().libraryVariables.var_Alert_TeamsChannelID",
+              "type": "Expression"
+            },
+            "AlertToEmail": {
+              "value": "@pipeline().libraryVariables.var_Alert_EmailRecipient",
+              "type": "Expression"
+            },
+            "ItemWorkspaceName": {
+              "value": "@variables('v_workspace_name')",
+              "type": "Expression"
+            }
+          },
+          "waitOnCompletion": true
+        },
+        "policy": {
+          "secureInput": false
+        },
+        "name": "Invoke_Item_Execution_EventStream_Succeeded",
+        "dependsOn": [
+          {
+            "activity": "If One or More Source Files Exist",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ExecutePipeline",
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "ea347e7e-02a8-bc51-4245-6e9008d96b4d",
+            "type": "PipelineReference"
+          },
+          "parameters": {
+            "ExecutionErrorMessage": "The pipeline run failed due to an activity failure",
+            "ExecutionErrorScope": "test",
+            "ItemRunID": {
+              "value": "@pipeline().RunId",
+              "type": "Expression"
+            },
+            "ItemActivityRunID": {
+              "value": "@activity('If One or More Source Files Exist').ActivityRunId",
+              "type": "Expression"
+            }
+          },
+          "waitOnCompletion": true
+        },
+        "policy": {
+          "secureInput": false
+        },
+        "name": "Invoke_ExecutionError_EventStream",
+        "dependsOn": [
+          {
+            "activity": "If One or More Source Files Exist",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ExecutePipeline",
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "9ba74bf7-209a-b394-4466-1f22f4e7e343",
+            "type": "PipelineReference"
+          },
+          "parameters": {
+            "p_workspacename_relative_api_url": {
+              "value": "@variables('v_workspace_api_url')",
+              "type": "Expression"
+            }
+          },
+          "waitOnCompletion": true
+        },
+        "policy": {
+          "secureInput": false
+        },
+        "name": "Invoke_Fabric_API",
+        "dependsOn": []
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "v_workspace_name",
+          "value": {
+            "value": "@activity('Invoke_Fabric_API').output.pipelineReturnValue.api_output.displayName",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Set WorkspaceName Variable",
+        "dependsOn": [
+          {
+            "activity": "Invoke_Fabric_API",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ],
+    "parameters": {
+      "IntegrationTaskKey": {
+        "type": "int",
+        "defaultValue": 1
+      },
+      "RelatedIntegrationTaskKey": {
+        "type": "int",
+        "defaultValue": 3
+      }
+    },
+    "libraryVariables": {
+      "WorkspaceId": {
+        "type": "String",
+        "variableName": "ItemWorkspaceID",
+        "libraryName": "key2_framework_audit_log_rti_variables"
+      },
+      "var_Alert_TeamsGroupID": {
+        "type": "String",
+        "variableName": "var_Alert_TeamsGroupID",
+        "libraryName": "key2_framework_audit_log_rti_variables"
+      },
+      "var_Alert_TeamsChannelID": {
+        "type": "String",
+        "variableName": "var_Alert_TeamsChannelID",
+        "libraryName": "key2_framework_audit_log_rti_variables"
+      },
+      "var_Alert_EmailRecipient": {
+        "type": "String",
+        "variableName": "var_Alert_EmailRecipient",
+        "libraryName": "key2_framework_audit_log_rti_variables"
+      }
+    },
+    "variables": {
+      "WorkspaceId": {
+        "type": "String"
+      },
+      "ItemWorkspaceID_Param": {
+        "type": "String"
+      },
+      "varDestinationFileNameWithExtension": {
+        "type": "String"
+      },
+      "varDestinationFileName": {
+        "type": "String"
+      },
+      "varSinkRelative": {
+        "type": "String"
+      },
+      "varSinkAbsolute": {
+        "type": "String"
+      },
+      "varRandomNumberGreater": {
+        "type": "String",
+        "defaultValue": ".500"
+      },
+      "varRunID": {
+        "type": "String"
+      },
+      "v_workspace_name": {
+        "type": "String"
+      },
+      "v_workspace_api_url": {
+        "type": "String",
+        "defaultValue": "/workspaces/e3ae1e1f-85de-4c90-b852-bbc5afe2d174"
+      },
+      "DummyDataError": {
+        "type": "String"
+      },
+      "DummyDataErrorRefined": {
+        "type": "String"
+      },
+      "NotificationError": {
+        "type": "String"
+      }
+    }
+  }
+}

@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
     "type": "DataPipeline",
-    "displayName": "PL_AE_Secure_Endpoint_Failed"
+    "displayName": "PL_FDIF_POC_DelimitedFile_ToParquet"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "c8a76cbe-8040-b550-4832-6c4210f3ed86"
+    "logicalId": "a2885bdb-5ef1-a891-4af7-14beb9f32d73"
   }
 }
